@@ -1,2 +1,2 @@
 # human
-university research code
+source and helper files for study and research 

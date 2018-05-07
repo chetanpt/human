@@ -105,14 +105,14 @@ The experiment was conducted to examine and distinguish the PGM actuation delay 
 Based on this observation, we found that for the UPS, generating the assistive force/torque precisely is difficult owing to the delay and the difficulty in attaching multiple pumps in the shoe, which also disturbs normal walking. Therefore, we developed a PGM actuation control based on the gait detection system that can benefit and elevate the performance of the walking assist suit. In the next section, we discuss the design and control of a newly developed walking assist suit.
 
 \subsection{Design of Assistive Wearable Gait Augment Suit (AWGAS)}
-To overcome the challenge of the UPS, we developed a new walking assist suit called the AWGAS. AWGAS is developed based on the principle of the UPS, i.e., a lightweight, wearable, low-powered assistive suit. For the AWGAS, pneumatic solenoid valves are used for the actuation control of the PGM to generate the assistive force/torque, and the control signal was derived based on the gait detection system developed using pressure sensors in the shoes. The new design enables it to support a walking pitch of more than two steps/second and the level of augmentation can be controlled by setting the maximum supply air pressure.  K. Ogawa et al. mentioned that the maximum air pressure that the PGM can handle is 300 kPa, and contraction ratio increases with the air pressure. Therefore, setting the maximum cutoff air pressure using a pressure regulator decides the augmentation factor of the suit during walking. 
+To overcome the challenge of the UPS, we developed a new walking assist suit called the AWGAS. AWGAS is developed based on the principle of the UPS, i.e., a lightweight, wearable, low-powered assistive suit. For the AWGAS, pneumatic solenoid valves are used for the actuation control of the PGM to generate the assistive force, and the control signal was derived based on the gait detection system developed using pressure sensors in the shoes. The new design enables it to support a walking pitch of more than two steps per second which was not possible in UPS\cite{11} and the level of augmentation can be controlled by setting the maximum supply air pressure.  K. Ogawa et al. mentioned that the maximum air pressure that the PGM can handle is 300 kPa, and contraction ratio increases with the air pressure. Therefore, setting the maximum cutoff air pressure using a pressure regulator decides the augmentation factor of the suit during walking. 
 
 The AWGAS consists of a waist support, a knee support, PGMs attached along the quadriceps femoris, pressure sensors, pneumatic solenoid valves, controllers, and a portable air tank. Figure \ref{fig:aws} and figure \ref{fig:awgasillustration} show the overview and illustration of the applied assistive force during the swing phase of the gait cycle. Figure \ref{fig:aws} shows that the PGM is attached along the thigh muscles with the help of the waist support and knee support, while the backpack contains the controller circuit, the portable air tank, and a battery for the controller, and the pressure sensors in the shoe are connected to the controller. Figure \ref{fig:awgasillustration} illustrates the applied assistive force; the elastic nature of the PGM allows it to stretch during the stance and terminal stance phases and from the terminal stance controller that actuates the PGM for the swing phase of the gait cycle.
  
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=1\linewidth]{photos/AWS}
+	\includegraphics[width=1\linewidth]{photos/awgas_sue}
 	\caption{AWGAS Design and Construction}
 	\label{fig:aws}
 \end{figure}
@@ -133,7 +133,7 @@ The AWGAS utilizes the gait cycle and its phases to identify the region of assis
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=1\linewidth]{photos/gaitcycle}
-	\caption{Classification of the gait cycle into various phases and the respective orientation of the foot. Region shows where assistive force is provided.}
+	\caption{Classification of the gait cycle into stance and swing phases and the respective orientation of the foot. Region shows where assistive force is provided. (DLS = Double limb support \& SLS = Single limb support) }
 	\label{fig:gaitcycle}
 \end{figure}
 
@@ -214,14 +214,14 @@ For statistical analysis and comparison, multiple trials of the gait experiment 
 
 The experiment involves walking 15 m straight on a flat surface during the experiment sEMG, and the foot sensor data are recorded. Walking for 15 m provides ten full gait cycles, excluding the beginning and the terminal gait.  For recording the sEMG, we used the P-EMG plus device with eight channels with the recording frequency of \SI{1}{\kilo\hertz} for all the channels. The sEMG data are synchronized with the help of the FSR sensor data, which is beneficial for segmenting the gait cycles for the analysis and identification of the assist period in the gait cycle. 
 
-Eight healthy adults---seven male and one female---(25.5 $\pm$ 4.8; mean $\pm$ s.d.) participated in the experiment. The details of the experiment were shared with all the participants before the experiment  and informed consent was acquired from all subjects. During the experiment, the participants were allowed to rest to avoid muscle fatigue. Before starting the experiment, the maximum voluntary contraction (MVC) of each muscle was recorded for normalizing the sEMG data for statistical analysis. To record the MVC, all participants were asked to perform specific exercises or motions. They performed calf raises for recording the MVC for the calf muscles, i.e., SOL, LG, and MG, dorsiflexion for TA and squats for BF, and thigh contraction for VM, VL, and RF.
+Eight healthy adults seven male and one female (25.5 $\pm$ 4.8; mean $\pm$ s.d.) participated in the experiment. The details of the experiment were shared with all the participants before the experiment  and informed consent was acquired from all subjects. During the experiment, the participants were allowed to rest to avoid muscle fatigue. Before starting the experiment, the maximum voluntary contraction (MVC) of each muscle was recorded for normalizing the sEMG data for statistical analysis. To record the MVC, all participants were asked to perform specific exercises or motions. They performed calf raises for recording the MVC for the calf muscles, i.e., SOL, LG, and MG, dorsiflexion for TA and squats for BF, and thigh contraction for VM, VL, and RF.
 
 Figure \ref{fig:experiment} shows a participant wearing the experiment setup. The participant wears the AWGAS, with the sEMG electrodes attached to respective muscles, shoes with the FSRs, a backpack, a P-EMG device for recording the sEMG, a laptop for connecting and operating the P-EMG application, a battery for powering the P-EMG device and AWGAS controller, a controller and actuation circuit for the AWGAS, and a portable air tank. Together with all the equipment, the weight of the backpack is 7 kg. The laptop in the backpack was remotely operated for recording the sEMG appropriately.
 
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=1\linewidth]{photos/experiment}
+	\includegraphics[width=1\linewidth]{photos/experiment_sue}
 	\caption{Subject wearing AWGAS with experiment setup}
 	\label{fig:experiment}
 \end{figure}

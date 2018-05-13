@@ -22,7 +22,6 @@
 %\usepackage{amsmath} % assumes amsmath package installed
 %\usepackage{amssymb}  % assumes amsmath package installed
 \usepackage{booktabs}
-\usepackage{verbatim} 
 
 \title{\LARGE \bf
 Soft Wearable Augmented Walking Suit with Pneumatic Gel Muscles and Stance Phase Detection System to Assist Gait
@@ -59,19 +58,19 @@ Graduate Schools, Ministry of Education, Culture, Sports, Science and Technology
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
 
-Lower limb of human body is responsible for human locomotion and maintain good quality of life. But there are many cases of muscle fatigue or injuries due to stressful work environment, aging, working involve walking long distance. Therefore, there is a need of walking assistive suit which can unload muscle activation during walking and reduce the chances of lower limb muscle fatigue. In this paper we discuss about development of lightweight and wearable Augment Walking Suit using Pneumatic Gel Muscle and its actuation control using lower limb pose detection mechanism by taking human gait cycle in consideration. The objective of this assistive suit is to reduce required muscle effort of posterior and anterior muscle during swing phase of the gait cycle thereby making it easy to move forward. To evaluate the effects of the suit we tested this suit with random subjects and record sEMG of 8 major lower limb muscles for three level of assistive forces. The evaluation was done based on the sEMG signal envelop for each subject for different level of assistive forces and statistical difference in \%MVC of 8 major lower limb muscles active during gait cycle. In our result we found that all subjects show reduced or no significant changes in muscle efforts due to assistive suit for all the muscles responsible for swing phase of the gait cycle. 
+Lower limb of human body is responsible for human locomotion and maintain good quality of life. But there are many cases of muscle fatigue or injuries due to stressful work environment, aging and work that involve walking long distance. Therefore, there is a need of walking assistive suit which can unload muscle activation during walking and reduce the chances of lower limb muscle fatigue. In this paper we discuss about development of lightweight and wearable Augmented Walking Suit using Pneumatic Gel Muscle and its actuation control using lower limb pose detection mechanism by taking human gait cycle in consideration. The objective of this assistive suit is to reduce required muscle effort of posterior and anterior muscle during swing phase of the gait cycle thereby making it easier to move forward. To evaluate the effects of the suit we tested this suit with random subjects and record surface electromyography (sEMG) of 8 major lower limb muscles for three level of assistive forces. The evaluation was done based on the sEMG signal envelope for each subject for different level of assistive forces and statistical difference in \%MVC of 8 major lower limb muscles active during gait cycle. In our result we found that all subjects showed no change or a statistically significant reduction in muscle efforts due to assistive suit for all the muscles responsible for swing phase of the gait cycle. 
 \end{abstract}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{INTRODUCTION}
-Ability to move uninterrupted is one of the important function of human body. It is one of the reason for enjoying a good quality of life by enabling one to be independent for performing variety of daily tasks. But the there are many instances such as aging, accidents, longer and stressful working conditions results in muscle fatigue and injuries making it difficult to walk by affecting a quality of life of individual. Such situation can be avoided or addressed using exoskeletons or wearable assistive devices. Muscle activation pattern of human gait is dynamic and changes as the motion or intent is changed but the basic pattern of gait cycle is same for all. While developing our Augment walking suit we considered factors such as nature of work area, age, flexibility to use in outside environment, lightweight, portable, easy to use, reduces muscle efforts during walking and no impact on normal gait cycle. With increasing elderly population, stressful work condition devices like these will play significant role in improving the quality of life. L. Garçon et al \cite{1} in his review mentioned there are large requirement assistive devices for mobility for people such as elderly, disabled and healthcare staff for various tasks involved in daily life. Among various lower limb assistive devices there exists tradeoff between autonomous actuation, wearable, lightweight and affordability. HAL \cite{2} which enable walking easier for elderly and rehabilitation post stroke or accidents. Wearable agri robot \cite{3} designed for supporting farming activities and reduce muscle fatigue, it support body posture and reduces the muscle fatigue. Walking assist device with body weight support system \cite{4} for augmenting walking and assistive squats motion required for pick and place tasks in various work environment. RoboKnee \cite{5} is one DOF exoskeleton designed to support human locomotion such as walk and stair climbing. Plantarflexion assist exoskeleton \cite{6} is designed to reduced the metabolic cost of walking. 
+Ability to move uninterrupted is one of the critical function of human body. It is one of the reasons for enjoying a good quality of life by enabling one to be independent for performing a variety of daily tasks. However, there are many instances such as aging, accidents and longer and more stressful working conditions that result in muscle fatigue and injuries making it difficult to walk by affecting the quality of life of the individual. Such situation can be avoided or addressed using exoskeletons or wearable assistive devices. Muscle activation pattern of human gait is dynamic, and changes as the motion or intent are changed, but the basic pattern of gait cycle is same for all. While developing AWS we considered factors such as nature of work area, age, flexibility to use in outside environment, lightweight, portable, easy to use, reduces muscle efforts during walking and no impact on normal gait cycle. With increasing elderly population, stressful work condition devices like these will play a significant role in improving the quality of life. L. Garçon et al. \cite{1} in his review mentioned there are large requirement assistive devices for mobility for people such as elderly, disabled and healthcare staff for various tasks involved in daily life. Among various lower limb assistive devices, there exists tradeoff between autonomous actuation, wearable, lightweight and affordability. HAL \cite{2} which enable walking easier for elderly and rehabilitation post stroke or accidents. Wearable agri robot \cite{3} designed for supporting farming activities and reduce muscle fatigue, it supports body posture and reduces the muscle fatigue. Walking assist device with body weight support system \cite{4} for augmenting walking and assistive squats motion required for pick and place tasks in the various work environment. RoboKnee \cite{5} is one DOF exoskeleton designed to support human locomotion such as walk and stair climbing. Plantarflexion assist exoskeleton \cite{6} is designed to reduce the metabolic cost of walking. 
 
-All these devices are divided in segments such as health care, disability support and augmenting locomotion.  These solutions solve the problem in human locomotion due to disability or aging to great level but use in outside environment is limited specially in agriculture and factory settings. For augmented walking wearable, lightweight, portable, easy to use and reduce muscle fatigue, these criteria are important and together missing in assistive devices discussed above. To solve this problem previously we developed a lightweight low powered Pneumatic Gel Muscle (PGM) \cite{7} as shown in Fig \ref{fig:pgm}. PGM can generate force with 60 kPa air pressure which is not possible in traditional pneumatic artificial muscle \cite{8}. It is also structure in a way to be stitched to fabric or fix using Velcro tapes, this makes it easy to design the assistive suit. Figure \ref{fig:pgmelongationratio} shows relation of supplied air pressure, generated force and maximum elongation rate as percentage of resting length. 
+These devices are divided into segments such as healthcare, disability support and augmenting locomotion. These devices augment human motion significantly, but its use in outside environment is limited especially in agriculture and factory settings. For augmented walking wearable, lightweight, portable, easy to use and reduce muscle fatigue, these criteria are essential and together missing in assistive devices discussed above. To solve this problem previously, we developed a lightweight, low powered pneumatic gel muscle (PGM) \cite{7} as shown in Fig \ref{fig:pgm}. PGM can generate force with 60 kPa air pressure which is not possible in McKibben pneumatic artificial muscle (PAM) \cite{8}. It is also structure in a way to be stitched to fabric or fix using velcro tapes; this makes it easy to design the assistive suit. Fig \ref{fig:pgmelongationratio} shows the relation of supplied air pressure, generated force and maximum elongation as a percentage of resting length.
 
 In \cite{9} we devised the concept if Unplugged Powered Suit for walking assist using advantage of PGM and gait cycle. The actuation control of PGM was done by attaching pump at the heel of a shoe. This configuration was able to generate minimal assistive force for walking. But the challenge of this configuration is change in shoe design and placement of pumps in the shoe for generation of assistive force. 
 
-In this paper we discussed the improved design and control of Augment Walking Suit by keeping human locomotion in loop by using gait cycle identification mechanism for generating assistive force. In section \ref{methodology} PGM and its force characteristics, biomechanics and human gait detection system and design and configuration of the augment walking suit is discussed. In section \ref{Evaluation} we discuss about the evaluation criteria, experiment method setups, results of the lower limb sEMG evaluation for different force levels with comparison of average gait sEMG envelop for all subjects and statistical analysis. Section \ref{discuss} depicts the discussion, conclusion and future works. 
+In this paper we discussed the improved design and control of Augmented Walking Suit by keeping human locomotion in loop by using gait cycle identification mechanism for generating assistive force. In section \ref{methodology} PGM and its force characteristics, biomechanics and human gait detection system and design and configuration of the Augmented walking suit is discussed. In section \ref{Evaluation} we discuss about the evaluation criteria, experiment method setups, results of the lower limb sEMG evaluation for different force levels with comparison of average gait sEMG envelop for all subjects and statistical analysis. Section \ref{discuss} depicts the discussion, conclusion and future works. 
 
 \section{Methodology} \label{methodology}
 
@@ -131,7 +130,7 @@ Apart from the complex muscle activation foot position and orientation also chan
 \begin{figure}
 	\centering
 	\includegraphics[width=0.7\linewidth]{../photos/aws}
-	\caption{Augment Walking Suit}
+	\caption{Augmented Walking Suit}
 	\label{fig:aws}
 \end{figure}
 
@@ -186,21 +185,6 @@ Four experiments were conducted with five subjects to record sEMG of eight major
 
 For TA, observation of average sEMG enveloped shows reduction in peak value and sEMG envelop for 3 subjects and the \%MVC comparison shows significant difference in normal and assisted gait ($p-value < 0.05$ and $p-value < 0.01$) except for subject 1 who shows no change at all. For SOL two subject showed significant change in \%MVC ($p-value < 0.01$). For MG no change is observed from the sEMG signal envelope and \%MVC data shows two subject have significant change ($p-value < 0.05$). For LG 3 subjects showed significant difference ($p-value < 0.05$ and $p-value < <0.01$) whereas two subject show reduced \%MVC but non-significant. RF shows significant change for all subjects ($p-value < 0.05$ an $p-value < 0.01$), observation of sEMG shows reduction in signal envelope and peak value for assisted gait. For VM and VL \%MVC shows significant difference between normal and assisted gait ($p-value < 0.05$ and $p-value < 0.01$) whereas subject 3 showed no change in \%MVC of both muscles. For BF subject 1 and 3 shows increased in the sEMG signal peak during terminal swing phase and \%MVC shows significant reduction for assisted gait with 60 kPa ($p-value < 0.05$).
 
-\begin{figure}
-	\centering
-	\includegraphics[angle=-90,origin=c,width=0.9\linewidth]{../photos/emgenvelopenew6sub}
-	\caption{}
-	\label{fig:emgenvelopenew6sub}
-\end{figure}
-
-\begin{figure*}
-	\centering
-	\includegraphics[width=1\linewidth]{../photos/avgbargraph6subjects}
-	\caption{}
-	\label{fig:avgbargraph6subjects}
-\end{figure*}
-
-\begin{comment}
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=1\linewidth]{../photos/takeone_new}
@@ -213,15 +197,6 @@ For TA, observation of average sEMG enveloped shows reduction in peak value and 
 	\caption{sEMG of average gait cycle of posterior and anterior muscles above knee and FSR sensor data showing stance phase detection highlighted in green and supported swing phase of contralateral limb is highlighted in blue}
 	\label{fig:take2new}
 \end{figure}
-
-\begin{figure}
-	\centering
-	\includegraphics[width=0.9\linewidth]{../photos/averaged_graph}
-	\caption{}
-	\label{fig:averagedgraph}
-\end{figure}
-
-
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.9\linewidth]{../photos/tagraph}
@@ -258,22 +233,22 @@ For TA, observation of average sEMG enveloped shows reduction in peak value and 
 	\caption{Average \%MVC of VM for all subjects}
 	\label{fig:vmgraph}
 \end{figure}
-\begin{figure}[th]
+\begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.9\linewidth]{../photos/vlgraph}
 	\caption{Average \%MVC of VL for all subjects}
 	\label{fig:vlgraph}
 \end{figure}
-\begin{figure}[h]
+\begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.9\linewidth]{../photos/bfgraph}
 	\caption{Average \%MVC of BF for all subjects}
 	\label{fig:bfgraph}
 \end{figure}
-\end{comment}
 
 \begin{table*}[]
 	\centering
+	\caption{Result of statistical analysis, showing p-value \& t-value}
 	\begin{tabular}{@{}lrllllllllll@{}}
 		\toprule
 		\multicolumn{1}{c}{}                 &                                         & \multicolumn{2}{c}{\textbf{Subject 1}}                                      & \multicolumn{2}{c}{\textbf{Subject 2}}                                      & \multicolumn{2}{c}{\textbf{Subject 3}}                                      & \multicolumn{2}{c}{\textbf{Subject 4}}                                      & \multicolumn{2}{c}{\textbf{Subject 5}}                                      \\ \midrule
@@ -303,13 +278,13 @@ For TA, observation of average sEMG enveloped shows reduction in peak value and 
 		\textbf{}                            & \textbf{Suit 60 Kpa}                    & 0.150                                & -1.965                               & 0.073                                & 4.273                                & 0.014                                & -5.804                               & 0.030                                & -10.633                              & 0.206                                & -1.028                               \\
 		\textbf{}                            & \textbf{Suit 100 Kpa}                   & 0.050                                & 6.339                                & 0.196                                & 1.416                                & 0.398                                & -0.333                               & 0.064                                & -4.924                               & 0.146                                & -2.018                               \\ \bottomrule
 	\end{tabular}
-	\caption{Result of statistical analysis}
+
 	\label{ptvalues}
 \end{table*}
 
 \section{Discussion} \label{discuss}
 
-In this paper we discussed development of soft wearable Augment Walking Suit designed to reduce muscle effort during walking. This suit uses only one PGM for each lower limb for augmenting walking gait. Control of the assistive force is performed based on pressure sensor installed in the shoe. This sensor detects stance phase from heel touch to flat foot, this detecting mechanism helps trigger air valves to generate assistive force for the limb in swing phase. By placing sensors in both shoes gait phase of the individual limb and contralateral limb can be identified. Performance evaluation of AWS was done based on the stastical difference in the average \%MVC of sEMG signal between normal and assisted gait measured for 5 subjects. From the results we can find that use of AWS has reduced muscle activation pattern during experiment especially in the swing phase as designed. 
+In this paper we discussed development of soft wearable Augmented Walking Suit designed to reduce muscle effort during walking. This suit uses only one PGM for each lower limb for augmenting walking gait. Control of the assistive force is performed based on pressure sensor installed in the shoe. This sensor detects stance phase from heel touch to flat foot, this detecting mechanism helps trigger air valves to generate assistive force for the limb in swing phase. By placing sensors in both shoes gait phase of the individual limb and contralateral limb can be identified. Performance evaluation of AWS was done based on the stastical difference in the average \%MVC of sEMG signal between normal and assisted gait measured for 5 subjects. From the results we can find that use of AWS has reduced muscle activation pattern during experiment especially in the swing phase as designed. 
 
 During swing phase of the gait cycle rectus femoris (RF), vastus medialis (VM), vastus lateralis (VL), biceps femoris (BF), tibialis anterior (TA) and lateral gastrocnemius (LG) all these muscles show showed significant difference in the \%MVC for most of the subjects. Soleus showed increased in the \%MVC for subjects in case of assisted gait using AWS with no air supply, soleus muscle is active during preswing (toe off) phase of the gait cycle. We believe the reason for this is the placement of PGM which creates flexion torque at knee during terminal stance where soleus is responsible for toe off and knee extension during initial swing phase. Biceps femoris which is one of the hamstring muscle and responsible for hip extension and flexion support showed no significant difference in \%MVC. 
 
@@ -317,7 +292,7 @@ During swing phase of the gait cycle rectus femoris (RF), vastus medialis (VM), 
 
 \section{Conclusion} \label{conclusion}
 
-In this paper we developed Augment Walking Suit and PGM actuation control based on stance phase detection system. Results of performance evaluation experiment showed reduced muscle activation of lower limb muscle significantly. The current mechanism provides assistive force for \%10 to 15\% of the gait cycle during swing phase. The current configuration is lightweight, portable and easy to use. In future work, we plan to devise full gait detection system for detail control over muscle activation, this will allow us to add more PGM in the suit for detailed control over gait cycle and improve augmentation factor of AWS while keeping it lightweight and portable.
+In this paper we developed Augmented Walking Suit and PGM actuation control based on stance phase detection system. Results of performance evaluation experiment showed reduced muscle activation of lower limb muscle significantly. The current mechanism provides assistive force for \%10 to 15\% of the gait cycle during swing phase. The current configuration is lightweight, portable and easy to use. In future work, we plan to devise full gait detection system for detail control over muscle activation, this will allow us to add more PGM in the suit for detailed control over gait cycle and improve augmentation factor of AWS while keeping it lightweight and portable.
 
 \addtolength{\textheight}{-12cm}   % This command serves to balance the column lengths
 % on the last page of the document manually. It shortens
@@ -338,8 +313,7 @@ In this paper we developed Augment Walking Suit and PGM actuation control based 
 
 \section*{ACKNOWLEDGMENT}
 
-The authors take this opportunity to thank members of Biological Systems Engineering lab at Graduate School of Engineering in Hiroshima University, Japan for participating in the performance evaluation of the AWS. We also like to thank Daiya Industries for supply and support for PGM development.   We also like to thank Daiya Industries for supply and support for PGM development.  We also like to thank Daiya Industries for supply and support for PGM development.   We also like to thank Daiya Industries for supply and support for PGM development.    
-
+The authors take this opportunity to thank members of Biological Systems Engineering lab at Graduate School of Engineering in Hiroshima University, Japan for participating in the performance evaluation of the AWS. We also like to thank Daiya Industries for supply and support for PGM development.  
 
 \begin{thebibliography}{10}
 

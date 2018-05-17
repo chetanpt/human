@@ -22,6 +22,7 @@
 %\usepackage{amsmath} % assumes amsmath package installed
 %\usepackage{amssymb}  % assumes amsmath package installed
 \usepackage{booktabs}
+\usepackage{graphicx}
 
 \title{\LARGE \bf
 Soft Wearable Augmented Walking Suit with Pneumatic Gel Muscles and Stance Phase Detection System to Assist Gait
@@ -114,44 +115,41 @@ y = 0.3883x + 5.8899; (R^2=0.998)
 \end{equation}
 
 \subsection{Biomechanics of Gait Cycle } \label{gaitcycle}
-The design and control of the AWS is based on human walking i.e. gait cycle and depends on how we walk. The gait cycle is divided into three major phases i.e. stance phase, double limb support phase and swing phase. The stance phase is responsible for weight acceptance and load transfer to support swing phase of the contralateral limb, Figure \ref{fig:gait} shows schematic block diagram of the gait cycle. In stance phase muscle activation of tibialis anterior (TA), rectus femoris (RF), vastus medialis (VM), vastus lateralis (VL), soleus (SOL), medial gastrocnemius (MG) and lateral gastrocnemius (LG) is observed. These muscles are responsible from heel strike till toe off in the stance phase. In the double limb support phase the limb going in stance phase support the forward locomotion of the contralateral limb going in swing phase. In this phase both the limbs are on the ground for about 10\% of the one gait cycle. In this phase SOL, LG, MG and RF muscles are active and responsible for the limb going in swing phase. In the swing phase limb makes forward movement and RF, VL, VM, biceps femoris (BF) are major muscle contributors of this phase. 
+The design and control of the AWS is based on human walking i.e. gait cycle and depends on how we walk. The gait cycle is divided into three major phases i.e. stance phase, double limb support phase and swing phase. The stance phase is responsible for weight acceptance and load transfer to support swing phase of the contralateral limb, Figure \ref{fig:standardgait} shows schematic block diagram of the gait cycle. In stance phase muscle activation of tibialis anterior (TA), rectus femoris (RF), vastus medialis (VM), vastus lateralis (VL), soleus (SOL), medial gastrocnemius (MG) and lateral gastrocnemius (LG) is observed. These muscles are responsible from heel strike till toe off in the stance phase. In the double limb support phase the limb going in stance phase support the forward locomotion of the contralateral limb going in swing phase. In this phase both the limbs are on the ground for about 10\% of the one gait cycle. In this phase SOL, LG, MG and RF muscles are active and responsible for the limb going in swing phase. In the swing phase limb makes forward movement and RF, VL, VM, biceps femoris (BF) are major muscle contributors of this phase. 
 
 Apart from the complex muscle activation foot position and orientation also changes. In stance phase foots orientation start from heel strike then flat foot, heels off and ends with toe off. We used this information for gait detection and actuation control of the AWS.
-
-
 \begin{figure}
 	\centering
-	\includegraphics[width=0.8\linewidth]{../photos/gait}
-	\caption{Gait Cycle Classification}
-	\label{fig:gait}
+	\includegraphics[width=1\linewidth]{../photos/standardGait}
+	\caption{The figure shows classification of gait cycle in stance and swing phase along with the double limb support which occurs during transition from one phase to another. It also shows the region of assistive gait which starts during double limb support just before initial swing until terminal swing phase.}
+	\label{fig:standardgait}
 \end{figure}
-
 
 \subsection{AWS Design and Actuation Control Mechanism}
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.7\linewidth]{../photos/aws}
+	\includegraphics[width=1\linewidth]{../photos/awsbigfont}
 	\caption{Augmented Walking Suit}
-	\label{fig:aws}
+	\label{fig:awsbigfont}
 \end{figure}
 
 
 \begin{figure}
 	\centering
-	\includegraphics[width=1\linewidth,height=0.5\linewidth]{../photos/awscontrol}
-	\caption{AWS Control mechanism}
+	\includegraphics[width=1\linewidth]{../photos/awscontrol}
+	\caption{The figure shows AWS assist control mechanism as a continuous process of Proportional (P) control which uses FSR sensor in the shoe to actuate PGM switching on pneumatic valves connected to portable air tank.}
 	\label{fig:awssystem}
 \end{figure}
 \begin{figure}
 	\centering
 	\includegraphics[width=4cm]{../photos/fsrsole}
-	\caption{FSR-406 sensor placement in shoe}
+	\caption{The figure shows FSR-406 pressure sensor placement in the shoe. This placement detect the stance and swing phase of both limb.}
 	\label{fig:fsrsole}
 \end{figure}
 
 
-AWS is designed to use human motion to detect and provide assistive force. In the section \ref{gaitcycle} we talked about using foot orientation in stance phase and the respective motion in contralateral limb. To use this information an FSR-406 pressure sensor was place in the shoe to detect flat foot, which is when the assistive force is to be applied to the contralateral limb as it goes into the swing phase. FSR placement is shown in Fig \ref{fig:fsrsole} and Fig \ref {fig:aws} shows subject wearing AWS assistive suit with controller, battery, air tank in backpack. Figure \ref{fig:awssystem} shows control mechanism of the AWS suit with FSR-406 sensor based stance phase detection mechanism and actuation control of the PGM. It is a continuous process of proportional (P) control where Arduino Uno board monitors the FSR sensor data to identify stance phase in the gait cycle. Detection of the gait cycle triggers actuation mechanism of the PGM on the contralateral limb. For actuation control we used Kaganei G010E1 3/2 normally closed solenoid valve. FSR sensor data is continuously monitored for switching ON/OFF solenoid valves. This system is realized using following equation 
+AWS is designed to use human motion to detect and provide assistive force. In the section \ref{gaitcycle} we talked about using foot orientation in stance phase and the respective motion in contralateral limb. To use this information an FSR-406 pressure sensor was place in the shoe to detect flat foot, which is when the assistive force is to be applied to the contralateral limb as it goes into the swing phase. FSR placement is shown in Fig \ref{fig:fsrsole} and Fig \ref {fig:awsbigfont} shows subject wearing AWS assistive suit with controller, battery, air tank in backpack. Figure \ref{fig:awssystem} shows control mechanism of the AWS suit with FSR-406 sensor based stance phase detection mechanism and actuation control of the PGM. It is a continuous process of proportional (P) control where Arduino Uno board monitors the FSR sensor data to identify stance phase in the gait cycle. Detection of the gait cycle triggers actuation mechanism of the PGM on the contralateral limb. For actuation control we used Kaganei G010E1 3/2 normally closed solenoid valve. FSR sensor data is continuously monitored for switching ON/OFF solenoid valves. This system is realized using following equation 
 
 \begin{equation}\label{kevalue}
 E = R - Y 
@@ -178,74 +176,58 @@ Total 3 experiment was performed, first experiment conducted to record sEMG data
 
 \begin{figure}
 	\centering
-	\includegraphics[width=1\linewidth]{../photos/experimentsetup}
+	\includegraphics[width=1\linewidth]{../photos/awsexperiment}
 	\caption{Experiment setup, subject wearing AWS, electrodes and backpack }
 	\label{fig:experimentsetup}
 \end{figure}
 
 \subsection{Results}
 
-Four experiments were conducted with five subjects to record sEMG of eight major muscles in the right lower limb of all subjects. The recorded sEMG was rectified with iEMG, 2nd order low pass filter with cut off frequency of 100 Hz, 2nd order high pass filter with cut off frequency of 40 Hz using P-EMG plus tool for P-EMG device. Figure 8 and 9 shows comparison of muscle activation for all 4 experiments, the graphs also show stance phase detection for both legs based on the recorded foot sensor data, it was also used for segmenting gait cycles and calculating average gait signal for each experiment.  The portion of the graph highlighted in the green is stance phase detection on the left leg which provides assistive force on right leg as it transitions  from stance phase to swing phase. The portion of the graph highlighter in the blue shows the gait phase during which effect of assistive force is observed. This graph visualizes the difference in the sEMG signal envelope for normal gait when AWS is not worn and 2 levels of assisted gait with AWS. Significance of  changes in sEMG were quantified by running two sample t-test to calculate statistical difference and p-value for significance of the difference in the normal and assisted gait signal for all muscles for all subjects. Figure \ref{fig:aggregatedbargraph} shows averaged \%MVC data for each subject for 3 experiments and their significance individual muscle. Table \ref{ptvalues} shows result of the two sample t-test.
+Four experiments were conducted with five subjects to record sEMG of eight major muscles in the right lower limb of all subjects. The recorded sEMG was rectified with iEMG, 2nd order low pass filter with cut off frequency of 100 Hz, 2nd order high pass filter with cut off frequency of 40 Hz using P-EMG plus tool for P-EMG device. Figure 8 and 9 shows comparison of muscle activation for all 4 experiments, the graphs also show stance phase detection for both legs based on the recorded foot sensor data, it was also used for segmenting gait cycles and calculating average gait signal for each experiment.  The portion of the graph highlighted in the green is stance phase detection on the left leg which provides assistive force on right leg as it transitions  from stance phase to swing phase. The portion of the graph highlighter in the blue shows the gait phase during which effect of assistive force is observed. This graph visualizes the difference in the sEMG signal envelope for normal gait when AWS is not worn and 2 levels of assisted gait with AWS. Significance of  changes in sEMG were quantified by running two sample t-test to calculate statistical difference and p-value for significance of the difference in the normal and assisted gait signal for all muscles for all subjects. Figure \ref{fig:aggregatedbargraph} shows averaged \%MVC data for each subject for 3 experiments and their significance individual muscle. Table 1 shows result of the two sample t-test.
 
 For TA, observation of average sEMG enveloped shows reduction in peak value and sEMG envelop for 3 subjects and the \%MVC comparison shows significant difference in normal and assisted gait ($p-value < 0.05$ and $p-value < 0.01$) except for subject 1 who shows no change at all. For SOL two subject showed significant change in \%MVC ($p-value < 0.01$). For MG no change is observed from the sEMG signal envelope and \%MVC data shows two subject have significant change ($p-value < 0.05$). For LG 3 subjects showed significant difference ($p-value < 0.05$ and $p-value < <0.01$) whereas two subject show reduced \%MVC but non-significant. RF shows significant change for all subjects ($p-value < 0.05$ and $p-value < 0.01$), observation of sEMG shows reduction in signal envelope and peak value for assisted gait. For VM and VL \%MVC shows significant difference between normal and assisted gait ($p-value < 0.05$ and $p-value < 0.01$) whereas subject 3 showed no change in \%MVC of both muscles. For BF subject 1 and 3 shows increased in the sEMG signal peak during terminal swing phase and \%MVC shows significant reduction for assisted gait with 60 kPa assistive pressure ($p-value < 0.05$).
 
-
-\begin{figure}[!h]
-	\centering
-	\includegraphics[width=1\linewidth]{../photos/takeone_new}
-	\caption{sEMG of average gait cycle of posterior and anterior muscles below knee and FSR sensor data showing stance phase detection highlighted in green and supported swing phase of contralateral limb is highlighted in blue}
-	\label{fig:takeonenew}
-\end{figure}
-\begin{figure}[!h]
-	\centering
-	\includegraphics[width=1\linewidth]{../photos/take2_new}
-	\caption{sEMG of average gait cycle of posterior and anterior muscles above knee and FSR sensor data showing stance phase detection highlighted in green and supported swing phase of contralateral limb is highlighted in blue}
-	\label{fig:take2new}
-\end{figure}
 \begin{figure*}
 	\centering
-	\includegraphics[width=1\linewidth]{../photos/aggregatedbargraph}
+	\includegraphics[width=0.7\linewidth]{../photos/emgenvelopewithfsr}
+	\caption{The figure shows normalized averaged sEMG signal envelope for lower limb muscle groups observed for walking when AWS is not worn and when AWS is worn with two levels of assistive air pressure provided. It also shows FSR sensor signal showing assistive phase in the gait cycle. The X-axis is percentage gait cycle (heel strike to heel strike) and Y-axis is average percentage MVC.}
+	\label{fig:emgenvelope}
+\end{figure*}
+
+\begin{figure*}
+	\centering
+	\includegraphics[width=0.9\linewidth]{../photos/aggregatedbargraph}
 	\caption{}
 	\label{fig:aggregatedbargraph}
 \end{figure*}
 
-
-
-\begin{table*}[]
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[]
 	\centering
-	\caption{Result of statistical analysis, showing p-value \& t-value}
-	\begin{tabular}{@{}lrllllllllll@{}}
+	\caption{My caption}
+	\label{my-label}
+	\begin{tabular}{@{}cllcr@{}}
 		\toprule
-		\multicolumn{1}{c}{}                 &                                         & \multicolumn{2}{c}{\textbf{Subject 1}}                                      & \multicolumn{2}{c}{\textbf{Subject 2}}                                      & \multicolumn{2}{c}{\textbf{Subject 3}}                                      & \multicolumn{2}{c}{\textbf{Subject 4}}                                      & \multicolumn{2}{c}{\textbf{Subject 5}}                                      \\ \midrule
-		\multicolumn{1}{c}{\textbf{Muscles}} & \multicolumn{1}{c}{\textbf{Experiment}} & \multicolumn{1}{c}{\textbf{p-value}} & \multicolumn{1}{c}{\textbf{t-value}} & \multicolumn{1}{c}{\textbf{p-value}} & \multicolumn{1}{c}{\textbf{t-value}} & \multicolumn{1}{c}{\textbf{p-value}} & \multicolumn{1}{c}{\textbf{t-value}} & \multicolumn{1}{c}{\textbf{p-value}} & \multicolumn{1}{c}{\textbf{t-value}} & \multicolumn{1}{c}{\textbf{p-value}} & \multicolumn{1}{c}{\textbf{t-value}} \\ \midrule
-		\textbf{TA}                          & \textbf{Suit No Assist}                 & 0.074                                & -4.219                               & 0.002                                & 14.861                               & 0.062                                & 6.025                                & 0.013                                & 6.062                                & 0.052                                & 5.073                                \\
-		\textbf{}                            & \textbf{Suit 60 Kpa}                    & 0.074                                & -4.219                               & 0.064                                & 4.928                                & 0.009                                & 1.618                                & 0.124                                & 8.743                                & 0.036                                & 7.222                                \\
-		\textbf{}                            & \textbf{Suit 100 Kpa}                   & 0.174                                & 1.646                                & 0.018                                & 17.362                               & 0.057                                & 10.541                               & 0.004                                & 9.930                                & 0.032                                & 5.572                                \\ \midrule
-		\textbf{SOL}                         & \textbf{Suit No Assist}                 & 0.152                                & 1.373                                & 0.245                                & 0.838                                & 0.061                                & -5.137                               & 0.025                                & -12.503                              & 0.028                                & 4.067                                \\
-		\textbf{}                            & \textbf{Suit 60 Kpa}                    & 0.215                                & -1.246                               & 0.075                                & 2.289                                & 0.111                                & 2.738                                & 0.160                                & -1.821                               & 0.077                                & 4.077                                \\
-		\textbf{}                            & \textbf{Suit 100 Kpa}                   & 0.259                                & -0.944                               & 0.182                                & 1.552                                & 0.072                                & 4.341                                & 0.072                                & -4.322                               & 0.021                                & 4.726                                \\ \midrule
-		\textbf{MG}                          & \textbf{Suit No Assist}                 & 0.112                                & 2.723                                & 0.151                                & 1.382                                & 0.098                                & 3.155                                & 0.174                                & 1.646                                & 0.078                                & 4.011                                \\
-		\textbf{}                            & \textbf{Suit 60 Kpa}                    & 0.126                                & -2.387                               & 0.456                                & -0.124                               & 0.017                                & 18.882                               & 0.008                                & 38.250                               & 0.336                                & -0.567                               \\
-		\textbf{}                            & \textbf{Suit 100 Kpa}                   & 0.389                                & -0.365                               & 0.170                                & -1.688                               & 0.077                                & 4.075                                & 0.021                                & 14.927                               & 0.290                                & 0.656                                \\ \midrule
-		\textbf{LG}                          & \textbf{Suit No Assist}                 & 0.067                                & 2.455                                & 0.041                                & 3.264                                & 0.489                                & -0.035                               & 0.010                                & 7.078                                & 0.100                                & 3.066                                \\
-		\textbf{}                            & \textbf{Suit 60 Kpa}                    & 0.140                                & 2.127                                & 0.040                                & 3.328                                & 0.249                                & 1.004                                & 0.033                                & 3.715                                & 0.093                                & 3.337                                \\
-		\textbf{}                            & \textbf{Suit 100 Kpa}                   & 0.057                                & -2.697                               & 0.205                                & 1.036                                & 0.253                                & 0.984                                & 0.102                                & 1.858                                & 0.003                                & 13.068                               \\ \midrule
-		\textbf{RF}                          & \textbf{Suit No Assist}                 & 0.003                                & 98.343                               & 0.131                                & 2.290                                & 0.045                                & 7.000                                & 0.012                                & 27.374                               & 0.169                                & -1.698                               \\
-		\textbf{}                            & \textbf{Suit 60 Kpa}                    & 0.003                                & 99.310                               & 0.041                                & 7.739                                & 0.002                                & 16.878                               & 0.004                                & 10.742                               & 0.061                                & 5.115                                \\
-		\textbf{}                            & \textbf{Suit 100 Kpa}                   & 0.110                                & -2.770                               & 0.056                                & 5.608                                & 0.020                                & 16.295                               & 0.002                                & 15.687                               & 0.151                                & 1.945                                \\ \midrule
-		\textbf{VM}                          & \textbf{Suit No Assist}                 & 0.043                                & 7.322                                & 0.072                                & 4.354                                & 0.372                                & -0.425                               & 0.033                                & 3.668                                & 0.012                                & -6.300                               \\
-		\textbf{}                            & \textbf{Suit 60 Kpa}                    & 0.001                                & 23.555                               & 0.002                                & 15.475                               & 0.141                                & -2.113                               & 0.055                                & 5.714                                & 0.044                                & -7.138                               \\
-		\textbf{}                            & \textbf{Suit 100 Kpa}                   & 0.084                                & -3.682                               & 0.372                                & -0.427                               & 0.221                                & 1.201                                & 0.098                                & 1.914                                & 0.073                                & 4.312                                \\ \midrule
-		\textbf{VL}                          & \textbf{Suit No Assist}                 & 0.181                                & 1.560                                & 0.003                                & 14.030                               & 0.378                                & 0.402                                & 0.001                                & 19.288                               & 0.023                                & -13.859                              \\
-		\textbf{}                            & \textbf{Suit 60 Kpa}                    & 0.027                                & 4.120                                & 0.016                                & 20.198                               & 0.167                                & 1.724                                & 0.002                                & 17.645                               & 0.000                                & -39.200                              \\
-		\textbf{}                            & \textbf{Suit 100 Kpa}                   & 0.095                                & -3.243                               & 0.473                                & 0.083                                & 0.195                                & 1.423                                & 0.038                                & 3.401                                & 0.006                                & -50.665                              \\ \midrule
-		\textbf{BF}                          & \textbf{Suit No Assist}                 & 0.164                                & -1.763                               & 0.064                                & 4.884                                & 0.371                                & -0.427                               & 0.058                                & -5.385                               & 0.084                                & -3.711                               \\
-		\textbf{}                            & \textbf{Suit 60 Kpa}                    & 0.150                                & -1.965                               & 0.073                                & 4.273                                & 0.014                                & -5.804                               & 0.030                                & -10.633                              & 0.206                                & -1.028                               \\
-		\textbf{}                            & \textbf{Suit 100 Kpa}                   & 0.050                                & 6.339                                & 0.196                                & 1.416                                & 0.398                                & -0.333                               & 0.064                                & -4.924                               & 0.146                                & -2.018                               \\ \bottomrule
+		\textbf{Muscles} & \multicolumn{1}{c}{\textbf{Experiment}} & \multicolumn{1}{c}{\textit{\textbf{p-value}}} & \textit{\textbf{t-value}} & \multicolumn{1}{c}{\textit{\textbf{t-critical}}} \\ \midrule
+		TA               & AWS 60 Kpa                              & 0.0001 **                                     & 14.51                     & 2.78                                             \\
+		& AWS 100 Kpa                             & 0.0002 **                                     & 24.25                     & 3.18                                             \\
+		SOL              & AWS 60 Kpa                              & 0.0392 *                                      & 3.02                      & 2.78                                             \\
+		& AWS 100 Kpa                             & 0.0329 *                                      & 3.20                      & 2.78                                             \\
+		MG               & AWS 60 Kpa                              & 0.0310 *                                      & 3.85                      & 3.18                                             \\
+		& AWS 100 Kpa                             & 0.0116 *                                      & 4.41                      & 2.78                                             \\
+		LG               & AWS 60 Kpa                              & 0.0095 **                                     & 4.68                      & 2.78                                             \\
+		& AWS 100 Kpa                             & 0.0201 *                                      & 4.53                      & 3.18                                             \\
+		RF               & AWS 60 Kpa                              & 0.0079 **                                     & 6.35                      & 3.18                                             \\
+		& AWS 100 Kpa                             & 0.0420 *                                      & 4.72                      & 4.30                                             \\
+		VM               & AWS 60 Kpa                              & 0.0670                                        & 2.50                      & 2.78                                             \\
+		& AWS 100 Kpa                             & 0.3300                                        & 1.16                      & 3.18                                             \\
+		VL               & AWS 60 Kpa                              & 0.0075 **                                     & 6.46                      & 3.18                                             \\
+		& AWS 100 Kpa                             & 0.4003                                        & 1.06                      & 4.30                                             \\
+		BF               & AWS 60 Kpa                              & 0.0192 *                                      & 7.11                      & 4.30                                             \\
+		& AWS 100 Kpa                             & 0.0020 **                                     & 10.16                     & 3.18                                             \\ \bottomrule
 	\end{tabular}
-
-	\label{ptvalues}
-\end{table*}
+\end{table}
 
 \section{Discussion} \label{discuss}
 
@@ -253,8 +235,25 @@ In this paper we discussed development of soft wearable Augmented Walking Suit d
 
 During swing phase of the gait cycle RF, VM, VL, BF, TA and LG all these muscles show showed significant difference in the \%MVC for most of the subjects. Soleus showed increased in the \%MVC for subjects in case of assisted gait using AWS with no air supply, soleus muscle is active during pre-swing (toe off) phase of the gait cycle. We believe the reason for this is the placement of PGM which creates flexion torque at knee during terminal stance where soleus is responsible for toe off and knee extension during initial swing phase.
 
-
-
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[]
+	\centering
+	\caption{The table shows reduction in }
+	\label{my-label}
+	\begin{tabular}{@{}ccc@{}}
+		\toprule
+		Muscle & \begin{tabular}[c]{@{}c@{}}60 kPa \\ Assistive Force\end{tabular} & \begin{tabular}[c]{@{}c@{}}100 kPa \\ Assitive Force\end{tabular} \\ \midrule
+		TA     & 16.90\%                                                           & 22.70\%                                                           \\
+		SOL    & 7.70\%                                                            & 8.10\%                                                            \\
+		MG     & 5.50\%                                                            & 8.50\%                                                            \\
+		LG     & 14.84\%                                                           & 13.10\%                                                           \\
+		RF     & 44.00\%                                                           & 31\%                                                              \\
+		VM     & 8.80\%                                                            & 7.90\%                                                            \\
+		VL     & 22.50\%                                                           & 11.70\%                                                           \\
+		BF     & 25.40\%                                                           & 27.60\%                                                           \\ \bottomrule
+	\end{tabular}
+\end{table}
 
 \section{Conclusion} \label{conclusion}
 

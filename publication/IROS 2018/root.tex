@@ -23,6 +23,7 @@
 %\usepackage{amssymb}  % assumes amsmath package installed
 \usepackage{booktabs}
 \usepackage{graphicx}
+\usepackage{siunitx}
 
 \title{\LARGE \bf
 Soft Wearable Augmented Walking Suit with Pneumatic Gel Muscles and Stance Phase Detection System to Assist Gait
@@ -117,7 +118,7 @@ y = 0.3883x + 5.8899; (R^2=0.998)
 \end{equation}
 
 \subsection{Biomechanics of Gait Cycle } \label{method:gaitcycle}
-The design and control of the AWS are based on human walking, i.e., gait cycle and depends on how we walk. The gait cycle is divided into three major phases, stance phase, double limb support phase and swing phase. The stance phase is responsible for weight acceptance, and load transfer to support swing phase of the contralateral limb, Fig. \ref{fig: standardgait} shows classification of the gait cycle in the stance and swing phase based on the orientation of the foot. During the transition from one phase to another, there always exists a period where both the limbs are on the ground this phase is called double limb support (DLS). In the stance phase muscle activation of tibialis anterior (TA), rectus femoris (RF), vastus medialis (VM), vastus lateralis (VL), soleus (SOL), medial gastrocnemius (MG) and lateral gastrocnemius (LG) is observed. These muscles are active from heel strike until toe off in the stance phase. In the DLS phase, the limb transitioning in stance phase support the forward locomotion of the contralateral limb going in swing phase. In this phase both the limbs are on the ground for about 10\% of the one gait cycle. SOL, LG, MG and RF muscles are active and responsible for the limb going in swing phase. In the swing phase limb makes forward movement and RF, VL, VM, biceps femoris (BF) are major muscle contributors. 
+The design and control of the AWS are based on human walking, i.e., gait cycle and depends on how we walk. The gait cycle is divided into three major phases, stance phase, double limb support phase and swing phase. The stance phase is responsible for weight acceptance, and load transfer to support swing phase of the contralateral limb, Fig. \ref{fig:standardgait} shows classification of the gait cycle in the stance and swing phase based on the orientation of the foot. During the transition from one phase to another, there always exists a period where both the limbs are on the ground this phase is called double limb support (DLS). In the stance phase muscle activation of tibialis anterior (TA), rectus femoris (RF), vastus medialis (VM), vastus lateralis (VL), soleus (SOL), medial gastrocnemius (MG) and lateral gastrocnemius (LG) is observed. These muscles are active from heel strike until toe off in the stance phase. In the DLS phase, the limb transitioning in stance phase support the forward locomotion of the contralateral limb going in swing phase. In this phase both the limbs are on the ground for about 10\% of the one gait cycle. SOL, LG, MG and RF muscles are active and responsible for the limb going in swing phase. In the swing phase limb makes forward movement and RF, VL, VM, biceps femoris (BF) are major muscle contributors. 
 
 During gait cycle apart from the multiple muscle activation, position and orientation of foot also change. The orientation of foot in stance phase starts from the heel strike then flat foot, heels off and ends with toe-off. Whereas in swing phase, foot orientation starts from toe-off to heel strike. In DLS foot orientation of both limb contrasts each other, i.e. one limb does heel strike, and another does toe-off. This contrast information in DLS is beneficial to identify the limbs in swing and stance phase. In AWS we used this information to design assistive control mechanism to assist swing phase of the gait cycle which is discussed in following subsection \ref{method:awscontrol}.
 
@@ -172,25 +173,31 @@ As discussed in section \ref{intro}, the AWS was designed to augment walking by 
 Walking involves a combination of muscle activation dynamics of both anterior and posterior lower limb muscles. These changes are recorded using sEMG signals of eight major posterior and anterior muscles which contribute to the gait cycle. We measured TA, SOL, MG, LG, RF, VM, VL and BF, these muscles are superficially accessible to record sEMG of the lower limb and collectively support gait cycle. The performance of the AWS is measured based on the statistical difference in the sEMG recorded when the subject is not wearing AWS and wearing AWS with two levels of assistive air pressure.
 
 \subsection{Experiment Protocol}
-For effective evaluation of the assisted gait we need to measure minimum 3 full gait cycles \cite{17}. In our experiment we recorded sEMG for 10 full gait cycles. It was done by asking subjects to walk 15 m straight by maintaining the walking speed during all experiments. For recording sEMG and FSR sensor data we prepared a backpack as shown in Fig. \ref{fig:experimentsetup} which includes, AWS controller circuit, P-EMG devices for recording sEMG, laptop (this laptop was remote operated to log EMG data), portable battery (required for AWS controller and P-EMG device). The total weight of the backpacks is 6 kg.
+To evaluate the effect of the AWS on muscle activation pattern of lower limb muscles for two levels of assistive air pressure the device was tested on a group of N=7 healthy young subjects with no gait abnormalities. Subject’s age ($\pm$ SD) was 28.8 $\pm$ 5.1, height was 150 $\pm$ \SI{10}{\centi\meter} and weight 70.8 $\pm$ \SI{14.5}{\kilogram}. All the subjects participated in the experiment after a brief introduction of the AWS and experiment requirements.
 
-Total 3 experiment was performed, first experiment conducted to record sEMG data for normal gait cycle. Second experiment was conducted by wearing AWS which includes waist support belt, knee support, PGM, solenoid valves, shoe with FSR sensor, air tank with pressure regulator and backpack as described above. In this experiment gait performance was measured without air supply, it was done because the PGM has its own elasticity which provides minimum assistive force. In the third experiment we measured gait performance by supplying 60 kPa air pressure and fourth experiment was conducted to measure gait performance when supplied air pressure is 100 kPa. Three iterations of each experiment were conducted to perform statistical analysis of the sEMG evaluation using two sample t-test method.  
+For effective evaluation of the assisted gait, we need to measure minimum three full gait cycles \cite{17}. In our experiment, we recorded sEMG for ten full gait cycles. It was done by asking subjects to walk 15 m straight on a flat surface by maintaining the walking speed during all experiments. The sEMG and FSR sensor data was logged using Personal EMG device from Oisaka electronic Ltd. For continuous and uninterrupted walking and recording of the data during the experiment, we prepared a backpack which contains the P-EMG device, portable battery, and a laptop to operate the P-EMG device. The backpack also contains controller circuit for AWS and portable air tank. The laptop was accessed remotely to record the sEMG. Fig. \ref{fig:experimentsetup} shows the experimental setup with the backpack, the total weight of the backpack is \SI{6}{\kilogram}. 
 
-Seven subjects participated in the experiment. Information was shared with all the subjects prior to the experiment. During the experiment subjects could relax or take break to avoid muscle fatigue because of carrying heavy backpack during experiments.
+Before starting the experiment, we recorded MVC for each muscle under observation for all subjects. Various exercise was performed to record MVC for different muscle groups. Squats exercise for BF; calf raises for SOL, LG, and MG; thigh contraction for RF, VM, and VL and ankle dorsiflexion for TA. 
+
+With the above setup, we conducted three experiments to evaluate AWS. In the first experiment, sEMG data was recorded for normal gait, i.e. when subjects are not wearing the AWS. It gives us the baseline for evaluating effects of AWS. In second and third experiment sEMG data was recorded for the assisted gait, i.e. subject wearing AWS with the backpack containing experiment setup. Two levels of assistive air pressure used during this experiment, i.e. \SI{60}{\kilo\pascal} and \SI{100}{\kilo\pascal} respectively. Three iterations of each experiment were performed to record enough data to conduct statistical analysis. 
 
 
 \begin{figure}
 	\centering
 	\includegraphics[width=1\linewidth]{../photos/awsexperiment}
-	\caption{Experiment setup, subject wearing AWS, electrodes and backpack. The backpack contains sEMG recording device, laptop, controller for the AWS, portable battery for controller and sEMG recording device. The total weight of the backpack is 7kg.}
+	\caption{Experiment setup, subject wearing AWS, electrodes and backpack. The backpack contains sEMG recording device, laptop, controller for the AWS, portable battery for controller and sEMG recording device. The total weight of the backpack is \SI{6}{\kilogram}.}
 	\label{fig:experimentsetup}
 \end{figure}
 
 \subsection{Results}
 
-Four experiments were conducted with five subjects to record sEMG of eight major muscles in the right lower limb of all subjects. The recorded sEMG was rectified with iEMG, 2nd order low pass filter with cut off frequency of 100 Hz, 2nd order high pass filter with cut off frequency of 40 Hz using P-EMG plus tool for P-EMG device. Fig. \ref{fig:emgenvelope} and \ref{fig:aggregatedbargraph} shows comparison of muscle activation for all three experiments, the graphs also show stance phase detection for both legs based on the recorded foot sensor data, it was also used for segmenting gait cycles and calculating average gait signal for each experiment.  The portion of the graph highlighted in the green is stance phase detection on the left leg which provides assistive force on right leg as it transitions  from stance phase to swing phase. The portion of the graph highlighter in the blue shows the gait phase during which effect of assistive force is observed. This graph visualizes the difference in the sEMG signal envelope for normal gait when AWS is not worn and when it is worn with two levels of assistive air pressure is used i.e. 60 kPa and 100 kPa. Significance of  changes in sEMG were quantified by running two sample t-test to calculate statistical difference and p-value for significance of the difference in the normal and assisted gait signal for all muscles for all subjects. Fig. \ref{fig:aggregatedbargraph} shows averaged \%MVC data for  for the three experiments and their significance individual muscle. Table 1 shows result of the two sample t-test showing significance of the reduction in the muscle activity.
+The recorded sEMG was rectified with integrated EMG (iEMG), second order low pass filter with cut off frequency of \SI{100}{\hertz}, second order high pass filter with cut off frequency of \SI{40}{\hertz} using P-EMG plus tool for the P-EMG device. The recorded sEMG was normalized using MVC to find \%MVC, and ten gait cycles for each subject was averaged to create one gait cycle which is further averaged to generate one gait cycle of all subject. The standard deviation and statistical analysis using two-sample t-test were conducted on the normalized averaged sEMG data for all the muscle under observation.
 
-For TA, observation of average sEMG enveloped shows reduction in peak value and sEMG envelop for 3 subjects and the \%MVC comparison shows significant difference in normal and assisted gait ($p-value < 0.05$ and $p-value < 0.01$) except for subject 1 who shows no change at all. For SOL two subject showed significant change in \%MVC ($p-value < 0.01$). For MG no change is observed from the sEMG signal envelope and \%MVC data shows two subject have significant change ($p-value < 0.05$). For LG 3 subjects showed significant difference ($p-value < 0.05$ and $p-value < <0.01$) whereas two subject show reduced \%MVC but non-significant. RF shows significant change for all subjects ($p-value < 0.05$ and $p-value < 0.01$), observation of sEMG shows reduction in signal envelope and peak value for assisted gait. For VM and VL \%MVC shows significant difference between normal and assisted gait ($p-value < 0.05$ and $p-value < 0.01$) whereas subject 3 showed no change in \%MVC of both muscles. For BF subject 1 and 3 shows increased in the sEMG signal peak during terminal swing phase and \%MVC shows significant reduction for assisted gait with 60 kPa assistive pressure ($p-value < 0.05$).
+Fig. \ref{fig:emgenvelope} shows normalized average sEMG signal envelope with standard deviation for gait cycle when AWS is not worn and when AWS is worn with two level assistive air pressure at \SI{60}{\kilo\pascal} and \SI{100}{\kilo\pascal}. The figure also shows FSR sensor data for both limbs. The signal peak shows the stance phase on the respective limb and swing on the contralateral limb. The assistive force was applied during the swing phase of the right limb. From the graphs, we see that as we increase the assistive air pressure reduction in the peak value of the normalized averaged sEMG signal is observed. To quantitively evaluate the differences we conducted two-sample t-test between unassisted gait and two assisted gaits. Fig. \ref{fig:aggregatedbargraph} shows averaged \%MVC data for the three experiments and their significance to individual muscle. Table \ref{t-test} shows the result of the two-sample t-test showing the significance of the reduction in the muscle activity based on $p-value$. 
+
+All the muscles showed significant reduction or no change in the muscle activity evaluated during the experiment. Muscles showed reduction for both levels of assistive air pressure provided. For TA ($p-value$ of \SI{60}{\kilo\pascal} \& $p-value$  \SI{100}{\kilo\pascal}) ($p\le0.01$ \& $p\le0.01$), SOL ($p\le0.05$ \& $p\le0.05$), MG ($p\le0.05$ \& $p\le0.05$), LG ($p\le0.01$ \& $p\le0.05$), RF ($p\le0.01$ \& $p\le0.05$), VL ($p\le0.01$ and BF ($p\le0.05$ \& $p\le0.01$)). For VM, both assistive level showed reduction average \%MVC but the reduction is not significant. This shows that using AWS to assist swing phase of the gait cycle reduces muscle activity of lower limb muscle during walking. When compared the reduction in the \%MVC of assisted gait as compared to unassisted gait we found that (\% reduction at 60 kPa $\pm$ SD \& \% reduction at 100 kPa $\pm$ SD) for TA (16.9\% $\pm$ 2.9\% \& 22.7\% $\pm$ 3.24\%), SOL (7.7\% $\pm$ 6.6\% \& 8.10\% $\pm$ 6.9\%), MG (5.5\% $\pm$ 6.4\%\& 8.50\% $\pm$ 6.3\%), LG (14.84\% $\pm$ 6.3\% \& 13.10\% $\pm$ 6.6\%), RF (44\% $\pm$ 5.9\% \& 31\% $\pm$ 4.9\%), VM (8.8\% $\pm$ 21.2\% \& 7.9\% $\pm$ 16\%), VL(22.5\% $\pm$ 5.1\% \& 11.1\% $\pm$ 5.8\%) and BF (25.4\% $\pm$ 3.66\% \& 27.6\% $\pm$ 2.44\%) was observed. The percentage reduction in muscle activity is shown in Table \ref{percentred} for reference. 
+
+Based on the analysis of average sEMG signal envelope, statistical analysis and percentage reduction in the muscle activity, it shows that AWS developed using PGM can work with low air pressure and also able to reduce the muscle efforts significantly in both levels of assisted gait by assisting swing phase of the gait cycle. 
 
 \begin{figure*}
 	\centering
@@ -211,7 +218,7 @@ For TA, observation of average sEMG enveloped shows reduction in peak value and 
 \begin{table}[]
 	\centering
 	\caption{Result of two sample t-test with the respective p-value, t-value and t-critical. p-value are maked with */** as displayed in Fig. \ref{fig:aggregatedbargraph}.}
-	\label{my-label}
+	\label{t-test}
 	\begin{tabular}{@{}cllcr@{}}
 		\toprule
 		\textbf{Muscles} & \multicolumn{1}{c}{\textbf{Experiment}} & \multicolumn{1}{c}{\textit{\textbf{p-value}}} & \textit{\textbf{t-value}} & \multicolumn{1}{c}{\textit{\textbf{t-critical}}} \\ \midrule
@@ -236,16 +243,22 @@ For TA, observation of average sEMG enveloped shows reduction in peak value and 
 
 \section{Discussion} \label{discuss}
 
-In this paper we discussed development of soft wearable Augmented Walking Suit designed to reduce muscle effort during walking. This suit uses only one PGM for each lower limb for augmenting walking gait. Control of the assistive force is performed based on pressure sensor installed in the shoe. This sensor detects stance phase from heel touch to flat foot, this detecting mechanism helps trigger air valves to generate assistive force for the contralateral limb in swing phase. By placing sensors in both shoes gait phase of the individual limb and contralateral limb can be identified. Performance evaluation of AWS was done based on the statistical difference in the average \%MVC of sEMG signal between normal and assisted gait measured for 7 subjects. From the results we can find that use of AWS has reduced muscle activation pattern during experiment especially in the swing phase as designed. 
+Our results show that the previously developed PGM is used for the development of AWS and making it lightweight, portable and easy to use. The use of AWS showed a reduction in the muscle activity in all the major lower limb muscle. Due to the soft nature of the suit this device does not drastically disturb the normal gait of the wearer. 
 
-During swing phase of the gait cycle RF, VM, VL, BF, TA and LG all these muscles show showed significant difference in the \%MVC for most of the subjects. Soleus showed increased in the \%MVC for subjects in case of assisted gait using AWS with no air supply, soleus muscle is active during pre-swing (toe off) phase of the gait cycle. We believe the reason for this is the placement of PGM which creates flexion torque at knee during terminal stance where soleus is responsible for toe off and knee extension during initial swing phase.
+The assistive control developed for AWS detect limbs going in the stance and swing phase during DLS by differentiating the FSR sensor data. This simple P control supports 20\%-30\% of the gait cycle during swing phase.  Due to the nature of the gait cycle and power source for the actuator, it is easy to add additional PGM’s to the AWS for increasing the range of assistive force. It is also possible to support stance and swing phase on a contralateral limb using same solenoid valve as in standard gait cycle both limbs functions synchronously.
+
+The device uses waist and knee support to attach PGM along rectus femoris. This position sometimes causes little disturbance during walking. It can be addressed by changing the way PGM’s are attached to the limbs in a way such that it does not disturb degree of freedom (DOF) at the knee or any other joint PGM’s are used. 
+
+The current state of the art wearable walking assist suits inspired by biological function of walking and the assistive actuators are always aligned with the muscles of the lower limb \cite{8} .. \cite{13}. In such devices, the swing phase of the gait is assisted with actuators mechanism closed to the ankle or along SOL muscle and have demonstrated the reduction in the metabolic cost of walking. In our research, AWS to assist swing phase PGM are attached along RF muscle from hip to knee, and experimental evaluation shows a reduction in the muscle activity TA, SOL, MG, and LG. These muscles are responsible for starting the swing phase starting from heels off in the stance phase. Along with this, reduction in the muscle activities is seen in RF VL and BF. However, changes in these muscle group show as we increase the assistive air percentage reduction in muscle activity decreases. These characteristics can be seen in Table \ref{percentred} and also from Fig. \ref{fig:aggregatedbargraph}.
+
+Qualitatively from the oral feedback from subjects, we found that the device is lightweight when not using 6 kg experimental setup; they also reported a feeling of the assistive force by PGM during the swing phase of the gait cycle. Some subject talked about easier walking when assistive air pressure is increased to 100 kPa as compared to 60 kPa. They have reported that the PGM attachments does not disturb the walking experience much but improving the attachment at the knee can have a good feeling and better walking experience. 
 
 % Please add the following required packages to your document preamble:
 % \usepackage{booktabs}
 \begin{table}[]
 	\centering
 	\caption{Reduction in \%MVC during assisted walking.}
-	\label{my-label}
+	\label{percentred}
 	\begin{tabular}{@{}ccc@{}}
 		\toprule
 		Muscle & \begin{tabular}[c]{@{}c@{}}60 kPa \\ Assistive Force\end{tabular} & \begin{tabular}[c]{@{}c@{}}100 kPa \\ Assitive Force\end{tabular} \\ \midrule
@@ -260,9 +273,9 @@ During swing phase of the gait cycle RF, VM, VL, BF, TA and LG all these muscles
 	\end{tabular}
 \end{table}
 
-\section{Conclusion} \label{conclusion}
+\section{Conclusion and Future Work} \label{conclusion}
 
-In this paper we developed Augmented Walking Suit and PGM actuation control based on stance phase detection system. Results of performance evaluation experiment showed statistical significant reduction in muscle activation of lower limb muscle. The current mechanism provides assistive force for 10\% to 15\% of the gait cycle during swing phase. The current configuration is lightweight, portable and easy to use. In future work, we plan to devise full gait detection system for detail control over muscle activation, this will allow us to add more PGM in the suit for detailed control over gait cycle and improve augmentation factor of AWS while keeping it lightweight and portable.
+
 
 %\addtolength{\textheight}{-12cm}   % This command serves to balance the column lengths
 % on the last page of the document manually. It shortens
@@ -282,9 +295,11 @@ In this paper we developed Augmented Walking Suit and PGM actuation control base
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section*{ACKNOWLEDGMENT}
-
 The authors take this opportunity to thank members of Biological Systems Engineering lab at Graduate School of Engineering in Hiroshima University, Japan for participating in the performance evaluation of the AWS. We also like to thank Daiya Industries for supply and support for PGM development.  
 
+The author Chetan Thakur was supported through the Hiroshima University
+TAOYAKA Program for creating a flexible, enduring, peaceful society, funded by the Program for Leading
+Graduate Schools, Ministry of Education, Culture, Sports, Science and Technology. 
 
 \begin{thebibliography}{10}
 

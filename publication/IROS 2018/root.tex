@@ -275,9 +275,14 @@ Qualitatively from the oral feedback from subjects, we found that the device is 
 
 \section{Conclusion and Future Work} \label{conclusion}
 
+In this paper, we discussed the design, development, and evaluation of AWS to overcome the limitation of UPS regarding variable walking speed, easy to use and portability. To achieve this, we developed assistive control system by detecting limbs in the stance and swing phase during DLS phase of the gait cycle. The simple P control can switch on / off the assistive force during swing and stance phase respectively. While transitioning from UPS to AWS, the device is still lightweight due to use of portable air tanks. We also demonstrated that AWS can unload muscle efforts significantly during walking as tested for two level of assistive air pressure (comparing the sEMG for not wearing AWS and wearing AWS with two levels of assistive air pressure). 
+
+Our evaluation showed good results regarding unloading muscle efforts, during this process we found many areas for improvements and future tasks. In our result, we observe that for RF, VM, VL, and BF antagonistic behavior are seen. Increase in the assistive air pressure decreases the percentage change in the muscle efforts; we would like to figure out the cause of such behavior in our further study and find the mechanism to cancel out such behavior. In our current study, we evaluate AWS using muscle activity changes, but the kinematic and physiological study are also essential for the evaluation of wearable assistive suit, we plan to conduct these studies in the future.  The assistive control of AWS uses FSR sensors in the shoe, the wires connecting for the shoe to the controller in the backpack causes little irritation to the user. We think the use of (inertial measurement unit) IMU sensors at the knee and ankle joint or flexible stretch sensors can provide information regarding gait cycle and wiring can be concealed in the suit. The current implementation of the AWS controller, battery, and air tank are placed in the backpack. In future, we want to integrate these in the waist support belt to make the device more user-friendly. 
+
+We believe devices like these have enough opportunities for augmenting human walking for all age groups for augmented motion, rehabilitation and augmented sports and fun activities. To achieve this, further activities involves modeling of PGM assistive force characteristics and use it for dynamic assistive control and cancel out the negative effect on some of the muscle. 
 
 
-%\addtolength{\textheight}{-12cm}   % This command serves to balance the column lengths
+\addtolength{\textheight}{-12cm}   % This command serves to balance the column lengths
 % on the last page of the document manually. It shortens
 % the textheight of the last page by a suitable amount.
 % This command does not take effect until the next page
@@ -297,9 +302,6 @@ Qualitatively from the oral feedback from subjects, we found that the device is 
 \section*{ACKNOWLEDGMENT}
 The authors take this opportunity to thank members of Biological Systems Engineering lab at Graduate School of Engineering in Hiroshima University, Japan for participating in the performance evaluation of the AWS. We also like to thank Daiya Industries for supply and support for PGM development.  
 
-The author Chetan Thakur was supported through the Hiroshima University
-TAOYAKA Program for creating a flexible, enduring, peaceful society, funded by the Program for Leading
-Graduate Schools, Ministry of Education, Culture, Sports, Science and Technology. 
 
 \begin{thebibliography}{10}
 

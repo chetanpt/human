@@ -164,7 +164,27 @@ The assistive control mechanism detects gait cycle by sensing the transition fro
 	\label{fig:awsbigfont}
 \end{figure}
 
-Fig. \ref{fig:awsbigfont} shows the developed prototype of AWS. AWS consists of waist support and knee support belt for fixing the PGM, PGM along rectus femoris of both limbs, solenoid valves connected to the PGM for actuation control, drawstring backpack which has controller circuit, portable battery and portable air tank. FSR sensors in the shoes are connected to the controller using wires. The weight of the system is 1 kg which is lighter than most of the state of the art wearable and portable walking assistive suits. <Please add table with list of items in the AWS and their weights with total weight. Update the weight of the system in a previous statement.>
+Fig. \ref{fig:awsbigfont} shows the developed prototype of AWS. AWS consists of waist support and knee support belt for fixing the PGM, PGM along rectus femoris of both limbs, solenoid valves connected to the PGM for actuation control, drawstring backpack which has controller circuit, portable battery and portable air tank. FSR sensors in the shoes are connected to the controller using wires. The weight of the system is 1.2 kg which is lighter than most of the state of the art wearable and portable walking assistive suits. Table \ref{awsweight} shows weights of individual components used in AWS along with total weight of the system.
+
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[]
+	\centering
+	\caption{The table describes total weight of the AWS based by integrating weight of all the components used.}
+	\label{awsweight}
+	\begin{tabular}{@{}ccc@{}}
+		\toprule
+		\textbf{Part Name}      & \textbf{Numbers} & \textbf{Weight (kg)} \\ \midrule
+		Air Tank with Regulator & 1                & 0.582                  \\
+		Solenoid Valve          & 2                & 0.040                   \\
+		PGM                     & 2                & 0.110                  \\
+		Tubes                   & 1                & 0.022                   \\
+		Knee Support Belt       & 2                & 0.052                   \\
+		Waist Support Belt      & 1                & 0.108                  \\
+		Controller and wires    & 1                & 0.303                  \\ \midrule
+		Total                   &                  & 1.217                 \\ \bottomrule
+	\end{tabular}
+\end{table}
 
 \section{AWS Performance Evaluation through Muscle Activation Pattern of Lower Limb Muscles} \label{Evaluation}
 
@@ -275,7 +295,7 @@ Qualitatively from the oral feedback from subjects, we found that the device is 
 
 \section{Conclusion and Future Work} \label{conclusion}
 
-In this paper, we discussed the design, development, and evaluation of AWS to overcome the limitation of UPS regarding variable walking speed, easy to use and portability. To achieve this, we developed assistive control system by detecting limbs in the stance and swing phase during DLS phase of the gait cycle. The simple P control can switch on / off the assistive force during swing and stance phase respectively. While transitioning from UPS to AWS, the device is still lightweight due to use of portable air tanks. We also demonstrated that AWS can unload muscle efforts significantly during walking as tested for two level of assistive air pressure (comparing the sEMG for not wearing AWS and wearing AWS with two levels of assistive air pressure). 
+In this paper, we discussed the design, development, and evaluation of AWS to overcome the limitation of UPS regarding variable walking speed, easy to use and portability. To achieve this, we developed assistive control system by detecting limbs in the stance and swing phase during DLS phase of the gait cycle. The simple P control can switch on / off the assistive force during swing and stance phase respectively. While transitioning from UPS to AWS, the weight of the device became 1.2 kg due addition of air tanks and controllers. We also demonstrated that AWS can unload muscle efforts significantly during walking as tested for two level of assistive air pressure (comparing the sEMG for not wearing AWS and wearing AWS with two levels of assistive air pressure). 
 
 Our evaluation showed good results regarding unloading muscle efforts, during this process we found many areas for improvements and future tasks. In our result, we observe that for RF, VM, VL, and BF antagonistic behavior are seen. Increase in the assistive air pressure decreases the percentage change in the muscle efforts; we would like to figure out the cause of such behavior in our further study and find the mechanism to cancel out such behavior. In our current study, we evaluate AWS using muscle activity changes, but the kinematic and physiological study are also essential for the evaluation of wearable assistive suit, we plan to conduct these studies in the future.  The assistive control of AWS uses FSR sensors in the shoe, the wires connecting for the shoe to the controller in the backpack causes little irritation to the user. We think the use of (inertial measurement unit) IMU sensors at the knee and ankle joint or flexible stretch sensors can provide information regarding gait cycle and wiring can be concealed in the suit. The current implementation of the AWS controller, battery, and air tank are placed in the backpack. In future, we want to integrate these in the waist support belt to make the device more user-friendly. 
 

@@ -1,0 +1,1 @@
+The video demonstrates and briefs about Augmented Walking Suit (AWS) developed in this paper. It shows the functioning of Pneumatic Gel Muscle (PGM) with low air pressure, the design of the AWS and PGM actuation control for assisting gait. Video also demonstrates contraction of PGM while walking and AWS evaluation to measure sEMG while walking. 

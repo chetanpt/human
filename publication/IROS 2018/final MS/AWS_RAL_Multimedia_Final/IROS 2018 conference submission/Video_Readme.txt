@@ -1,0 +1,1 @@
+The video demonstrates our augmented walking suit (AWS) developed in this paper. The video is encoded in .mp4 format and can be played with most video players. Authors of the video can be reached at chetanthakur[at]hiroshima-u.ac.jp

@@ -81,6 +81,7 @@ The experiment was conducted to examine and distinguish the PGM actuation delay 
 % Please add the following required packages to your document preamble:
 % \usepackage{booktabs}
 \begin{table}[]
+	\caption{Specifications of sensors used in the experiment}
 	\begin{tabular}{@{}lll@{}}
 		\toprule
 		\multicolumn{1}{c}{Category} & \multicolumn{1}{c}{Sensor Name} & \multicolumn{1}{c}{Specification} \\ \midrule
@@ -89,7 +90,7 @@ The experiment was conducted to examine and distinguish the PGM actuation delay 
 		Loadcell force sensor & CZL653   & 0-200N \\
 		PhidgetBridge & 1046\_0B  &  \\ \bottomrule
 	\end{tabular}
-	\caption{Specifications of sensors used in the experiment}
+
 	\label{sensordetails}
 \end{table}
 
@@ -136,6 +137,7 @@ The AWGAS uses the PGMs along the quadriceps femoris muscles connected across tw
 % \usepackage{booktabs}
 \begin{table}[]
 	\centering
+	\caption{Components of the AWGAS, their specification and weights in kilogram.}
 	\begin{tabular}{@{}cccc@{}}
 		\toprule
 		\textbf{Name} & \textbf{Quantity} & \textbf{Specification}                                             & \textbf{Weight (kg)} \\ \midrule
@@ -150,7 +152,7 @@ The AWGAS uses the PGMs along the quadriceps femoris muscles connected across tw
 		Backpack      & 1                 &                                                                    & 5                    \\ \midrule
 		\multicolumn{3}{c}{Total Weight of AWGAS}                                                              & 1.974                \\ \bottomrule
 	\end{tabular}
-	\caption{Components of the AWGAS, their specification and weights in kilogram.}
+
 	\label{awgasconfig}
 \end{table}
 
@@ -238,7 +240,7 @@ Therefore, based on equation \ref{eq:1} and \ref{eq:3}, we conclude that the AWG
 Gait cycle involves a complex sequence of the lower limb muscle activation together with joint moments at the hip, knee, and ankle. Augmenting the gait cycle involves reducing the muscle activation without affecting the walking speed or disturbing the motion. The AWGAS was developed to reduce muscle activation during the swing phase of the gait cycle by providing an assistive force using the PGM. The assistive force provided is based on the supplied air pressure. As discussed in the previous section, the AWGAS provides the assistive force for walking in the absence of air pressure. Based on this assumption, we evaluated the AWGAS for two conditions, one without air supply and the other with actuation control enabled and supply of air pressure. For the second case, the maximum possible air pressure was set to \SI{80}{\kilo\pascal}.
 
 \subsection{Test Selection and Evaluation Criteria}
-To evaluate the changes in the lower limb muscle activation for To evaluate the changes in the lower limb muscle activation for the use of AWGAS, surface EMG (sEMG) of eight significant muscles involved in the gait cycle and superficially accessible to record the sEMG were evaluated. We recorded muscle activities of the biceps femoris (BF) of hamstring muscles, quadriceps femoris muscles i.e. rectus femoris (RF), vastus medialis (VM) and vastus lateralis (VL), the calf muscles such as soleus (SOL), lateral gastrocnemius (LG) and medial gastrocnemius (MG), and tibialis anterior (TA) muscle. These muscles are significant contributors to the gait cycle and commonly used for assessing the gait experiments. 
+To evaluate the changes in the lower limb muscle activation for the use of AWGAS, surface EMG (sEMG) of eight significant muscles involved in the gait cycle and superficially accessible to record the sEMG were evaluated. We recorded muscle activities of the biceps femoris (BF) of hamstring muscles, quadriceps femoris muscles i.e. rectus femoris (RF), vastus medialis (VM) and vastus lateralis (VL), the calf muscles such as soleus (SOL), lateral gastrocnemius (LG) and medial gastrocnemius (MG), and tibialis anterior (TA) muscle. These muscles are significant contributors to the gait cycle and commonly used for assessing the gait experiments. 
 
 For statistical analysis and comparison, multiple trials of the gait experiment with similar walking conditions were conducted, with each experiment measuring at least three full gait cycles excluding the beginning and the terminal gait cycle due to loading and unloading effect [19]. In our study, we conducted three trials of each experiment and recorded ten full gait cycles. 
 
@@ -280,7 +282,7 @@ For statistical analysis, we measured the average and standard deviation of the 
 \begin{figure}
 	\centering
 	\includegraphics[width=1\linewidth]{photos/sEMG_peak_compare}
-	\caption{}
+	\caption{Average normalized sEMG signal of muscles of right lower limb. X-axis is percentage of the gait cycle, Y-axis is average \%MVC for each muscle. This figure is useful for visual comparison of change in the sEMG signal.}
 	\label{fig:semgpeakcompare}
 \end{figure}
 

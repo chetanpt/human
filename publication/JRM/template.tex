@@ -5,6 +5,8 @@
 \usepackage{booktabs}
 \usepackage{multirow}
 \usepackage{siunitx}
+\usepackage[normalem]{ulem}
+\useunder{\uline}{\ul}{}
 
 
 %%% following commands are unnecessary to edit %%%
@@ -111,7 +113,8 @@ Based on this observation, we found that for the UPS, generating the assistive f
 To overcome the challenge of the UPS, we developed a new walking assist suit called the AWGAS. AWGAS is developed based on the principle of the UPS, i.e., a lightweight, wearable, low-powered assistive suit. For the AWGAS, pneumatic solenoid valves are used for the actuation control of the PGM to generate the assistive force, and the control signal was derived based on the gait detection system developed using pressure sensors in the shoes. The new design enables it to support a walking pitch of more than two steps per second which was not possible in UPS\cite{11} and the level of augmentation can be controlled by setting the maximum supply air pressure.  K. Ogawa et al. mentioned that the maximum air pressure that the PGM can handle is 300 kPa, and contraction ratio increases with the air pressure. Therefore, setting the maximum cutoff air pressure using a pressure regulator decides the augmentation factor of the suit during walking. 
 
 The AWGAS consists of a waist support, a knee support, PGMs attached along the quadriceps femoris, pressure sensors, pneumatic solenoid valves, controllers, and a portable air tank. Figure \ref{fig:aws} and figure \ref{fig:awgasillustration} show the overview and illustration of the applied assistive force during the swing phase of the gait cycle. Figure \ref{fig:aws} shows that the PGM is attached along the thigh muscles with the help of the waist support and knee support, while the backpack contains the controller circuit, the portable air tank, and a battery for the controller, and the pressure sensors in the shoe are connected to the controller. Figure \ref{fig:awgasillustration} illustrates the applied assistive force; the elastic nature of the PGM allows it to stretch during the stance and terminal stance phases and from the terminal stance controller that actuates the PGM for the swing phase of the gait cycle.
- 
+
+Table \ref{awgasconfig} lists all the components of the AWGAS with respective specification and weights. Based on this total weight of AWGAS is \SI{1.5}{\kilogram} approximately , the battery lasts for 3-4 days of runtime and the air tank can actuate 500 actuation at \SI{100}{\kilo\pascal} when tested in the lab. 
 
 \begin{figure}[h]
 	\centering
@@ -128,6 +131,30 @@ The AWGAS consists of a waist support, a knee support, PGMs attached along the q
 
 
 The AWGAS uses the PGMs along the quadriceps femoris muscles connected across two joints: the pelvis and the knee. This configuration provides the assistive force during the swing phase of the gait cycle, and reduces the muscle effort of the quadriceps femoris during the swing phase of the gait cycle. The air pressure supply is controlled using the pneumatic solenoid valve. We also developed a gait detection system that identifies the swing phase of the individual limb. This system consists of two FSR-406 pressure sensors placed in each shoe. These are used together to detect the walking motion, standing posture, and gait cycle of the individual limb, and identify the phase of the gait cycle.
+
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[]
+	\centering
+	\begin{tabular}{@{}cccc@{}}
+		\toprule
+		\textbf{Name} & \textbf{Quantity} & \textbf{Specification}                                             & \textbf{Weight (kg)} \\ \midrule
+		Air tank      & 1                 & 40 (liters)                                                        & 0.3                  \\
+		Regulator     & 1                 & 0 - 0.5 Mpa)                                                       & 0.34                 \\
+		PGM           & 2                 & 30 cm                                                              & 0.11                 \\
+		Tubes         & 1                 & \begin{tabular}[c]{@{}c@{}}Polyurethane \\ (4 mm)\end{tabular}     & 0.022                \\
+		Knee Support  & 2                 & Fabric                                                             & 0.052                \\
+		Waist Support & 1                 & Fabric                                                             & 0.11                 \\
+		Controller    & 1                 & Arduino Uno                                                        & 0.3                  \\
+		Battery       & 1                 & \begin{tabular}[c]{@{}c@{}}10000 mAh \\ / 38.48 watts\end{tabular} & 0.24                 \\
+		Backpack      & 1                 &                                                                    & 5                    \\ \midrule
+		\multicolumn{3}{c}{Total Weight of AWGAS}                                                              & 1.974                \\ \bottomrule
+	\end{tabular}
+	\caption{Components of the AWGAS, their specification and weights in kilogram.}
+	\label{awgasconfig}
+\end{table}
+
+%Components of the AWGAS, their specification and weights in kilogram
 
 \subsection{Biomechanics of Gait Cycle and Control strategy of AWGAS}
 
@@ -211,13 +238,16 @@ Therefore, based on equation \ref{eq:1} and \ref{eq:3}, we conclude that the AWG
 Gait cycle involves a complex sequence of the lower limb muscle activation together with joint moments at the hip, knee, and ankle. Augmenting the gait cycle involves reducing the muscle activation without affecting the walking speed or disturbing the motion. The AWGAS was developed to reduce muscle activation during the swing phase of the gait cycle by providing an assistive force using the PGM. The assistive force provided is based on the supplied air pressure. As discussed in the previous section, the AWGAS provides the assistive force for walking in the absence of air pressure. Based on this assumption, we evaluated the AWGAS for two conditions, one without air supply and the other with actuation control enabled and supply of air pressure. For the second case, the maximum possible air pressure was set to \SI{80}{\kilo\pascal}.
 
 \subsection{Test Selection and Evaluation Criteria}
-To evaluate the changes in the lower limb muscle activation for the use of AWGAS, surface EMG (sEMG) of eight major muscles involved in the gait cycle and superficially accessible to record the sEMG were evaluated. We recorded muscle activities of the biceps femoris (BF) of hamstring muscles, quadriceps femoris muscles i.e. rectus femoris (RF), vastus medialis (VM) and vastus lateralis (VL), the calf muscles such as soleus (SOL), lateral gastrocnemius (LG) and medial gastrocnemius (MG), and tibialis anterior (TA) muscle. These muscles are significant contributors to the gait cycle and commonly used for assessing the gait experiments. 
+To evaluate the changes in the lower limb muscle activation for To evaluate the changes in the lower limb muscle activation for the use of AWGAS, surface EMG (sEMG) of eight significant muscles involved in the gait cycle and superficially accessible to record the sEMG were evaluated. We recorded muscle activities of the biceps femoris (BF) of hamstring muscles, quadriceps femoris muscles i.e. rectus femoris (RF), vastus medialis (VM) and vastus lateralis (VL), the calf muscles such as soleus (SOL), lateral gastrocnemius (LG) and medial gastrocnemius (MG), and tibialis anterior (TA) muscle. These muscles are significant contributors to the gait cycle and commonly used for assessing the gait experiments. 
 
 For statistical analysis and comparison, multiple trials of the gait experiment with similar walking conditions were conducted, with each experiment measuring at least three full gait cycles excluding the beginning and the terminal gait cycle due to loading and unloading effect [19]. In our study, we conducted three trials of each experiment and recorded ten full gait cycles. 
 
 The experiment involves walking 15 m straight on a flat surface during the experiment sEMG, and the foot sensor data are recorded. Walking for 15 m provides ten full gait cycles, excluding the beginning and the terminal gait.  For recording the sEMG, we used the P-EMG plus device with eight channels with the recording frequency of \SI{1}{\kilo\hertz} for all the channels. The sEMG data are synchronized with the help of the FSR sensor data, which is beneficial for segmenting the gait cycles for the analysis and identification of the assist period in the gait cycle. 
 
-Eight healthy adults seven male and one female (25.5 $\pm$ 4.8; mean $\pm$ s.d.) participated in the experiment. The details of the experiment were shared with all the participants before the experiment  and informed consent was acquired from all subjects. During the experiment, the participants were allowed to rest to avoid muscle fatigue. Before starting the experiment, the maximum voluntary contraction (MVC) of each muscle was recorded for normalizing the sEMG data for statistical analysis. To record the MVC, all participants were asked to perform specific exercises or motions. They performed calf raises for recording the MVC for the calf muscles, i.e., SOL, LG, and MG, dorsiflexion for TA and squats for BF, and thigh contraction for VM, VL, and RF.
+Eight healthy adults seven male and one female (25.5 $\pm$ 4.8; mean $\pm$ s.d.) participated in the experiment. The details of the experiment were shared with all the participants before the experiment, and informed consent was acquired. During the experiment, the participants could rest anytime to avoid muscle fatigue during training and experiment session. Before starting the experiment, the maximum voluntary contraction (MVC) of each muscle was recorded. MVC is used for normalization of sEMG data for statistical analysis. To record the MVC, specific exercises or motions were performed by participants. They performed calf raises for recording the MVC for the calf muscles, i.e., SOL, LG, and MG, dorsiflexion for TA and squats for BF, and thigh contraction for VM, VL, and RF. 
+After measuring MVC, participants were trained to maintain walking speed and get used to walking with the assistive suit. First, each subject walked 15 m repeatedly without an assistive suit and trained to maintain the walking speed. During this training, participants got familiar with the walking speed and surroundings. After this, participants wear AWGAS and practice walking to get familiar to walk with AWGAS. During which participants trained for assistive walking by wearing AWGAS with and without assistive air pressure provided. For each experiment the participants trained for approximately 20 mins. 
+
+
 
 Figure \ref{fig:experiment} shows a participant wearing the experiment setup. The participant wears the AWGAS, with the sEMG electrodes attached to respective muscles, shoes with the FSRs, a backpack, a P-EMG device for recording the sEMG, a laptop for connecting and operating the P-EMG application, a battery for powering the P-EMG device and AWGAS controller, a controller and actuation circuit for the AWGAS, and a portable air tank. Together with all the equipment, the weight of the backpack is 7 kg. The laptop in the backpack was remotely operated for recording the sEMG appropriately.
 
@@ -247,11 +277,18 @@ For statistical analysis, we measured the average and standard deviation of the 
 	\caption{Statistical evaluation of AWGAS based on the average of \% MVC for all subjectparticipants. X-axis is for all the muscles under observation and Y-axis is the average \% MVC for all subjectparticipants}
 	\label{fig:awgasemgbarpvalue}
 \end{figure*}
+\begin{figure}
+	\centering
+	\includegraphics[width=1\linewidth]{photos/sEMG_peak_compare}
+	\caption{}
+	\label{fig:semgpeakcompare}
+\end{figure}
 
 % Please add the following required packages to your document preamble:
 % \usepackage{booktabs}
 \begin{table}[]
 	\centering
+	\caption{Reduction average of \% MVC compared with normal gait. $-ve$ value indicates the increased in \% MVC, $+ve$ value represents the decrease in \% MVC.}
 	\begin{tabular}{@{}ccc@{}}
 		\toprule
 		\textbf{Muscle} & \textbf{\begin{tabular}[c]{@{}c@{}}AWGAS no assist\\ \% of Normal Gait\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}AWGAS assist\\ \% of Normal Gait\end{tabular}} \\ \midrule
@@ -264,7 +301,7 @@ For statistical analysis, we measured the average and standard deviation of the 
 		VL              & 21.77                                                                                & 20.18                                                                             \\
 		BF              & 34.00                                                                                & 31.04                                                                             \\ \bottomrule
 	\end{tabular}
-	\caption{Reduction average of \% MVC compared with normal gait. $-ve$ value indicates the increased in \% MVC, $+ve$ value represents the decrease in \% MVC.}
+
 	\label{percentagereduction}
 \end{table}
 
@@ -274,6 +311,7 @@ For statistical analysis, we measured the average and standard deviation of the 
 % \usepackage{multirow}
 \begin{table}[h]
 	\centering
+	\caption{Result of the Student's t-test with $p$ and $t$ values and $t-critical$ two-tail for testing our null hypothesis.}
 	\resizebox{\linewidth}{!}{
 	\begin{tabular}{@{}llccc@{}}
 		\toprule
@@ -296,13 +334,17 @@ For statistical analysis, we measured the average and standard deviation of the 
 		& AWGAS assist                   & 0.0077  & 7.97    & 4.30                                                           \\ \bottomrule
 	\end{tabular}
 	}
-	\caption{Result of the Ststudent's t-test with $p$ and $t$ values and $t-critical$ two-tail for testing our null hypothesis.}
+
 	\label{ttestresult}
 \end{table}
 
 \section{Preliminary Trials and Assessment by Elderly Farmer}
 
-The AWGAS is developed to augment walking and to be used by people of all age groups. To study the feasibility and usefulness of the AWGAS, we conducted the preliminary trials, where we shared the details of the AWGAS and its purpose with people in rural areas and requested to test the AWGAS and provide feedback. For successful participation, informed consent was obtained from all participants and pertinent information such as AWGAS specification and documentation, purpose of the trial, procedure, benefit and risks was translated in Japanese language and shared 4 months before the trials. During the trials, participants tested the AWGAS in a paddy field while performing various daily rural tasks. They walked on a flat surface, up the slope, down the slope, and on uneven surfaces with and without the AWGAS. Figure \ref{fig:preliminarystudy} shows the participant testing the AWGAS. The feedback received from the participant was that the AWGAS did not interfere with the various tasks attempted and walking with the AWGAS was easier as compared to walking without the AWGAS. The result of our laboratory experiment showed a significant reduction in the muscle activity. In the preliminary field study, we received feedback that indicated the ease of walking with the AWGAS in an uncontrolled environment. In the future, we plan to conduct more of such experiments to gather more feedback and improve the device.
+The AWGAS is developed to augment walking and to be used by people of all age groups. To study the feasibility and usefulness of the AWGAS, we conducted the preliminary trials, where we shared the details of the AWGAS and its purpose with people in rural areas and requested to test the AWGAS and provide feedback. For successful participation, informed consent was obtained from all participants and pertinent information such as AWGAS specification and documentation, purpose of the trial, procedure, benefit and risks was translated in Japanese language and shared 4 months before the trials. 
+
+During the trials, participants walked with and without AWGAS on paddy field while performing various daily rural tasks. They walked on a flat surface, up the slope, down the slope, and on uneven surfaces with and without the AWGAS. Figure \ref{fig:preliminarystudy} shows the participant testing the AWGAS. After the trial, participants said they feel less effort required in the lower limb when using assistive suit as compared to walking without the suit. They mentioned about feeling of assistive force while walking but are not sure how it reduces the efforts. They also mentioned that the backpack is lightweight and does not feel load on the back, but most farmers need to visit paddy fields using small trucks. In such cases, wearing and removing the suit due to backpack is time consuming. In our evaluation experiment we observed AWGAS reduces lower limb’s muscle efforts while walking. The feedback received during trials complemented the evaluated results. This proves that we can use AWGAS not in controlled environment but also in the uncontrolled environment. During trial we identified two areas of improvements. First making compact design will improve usability for their daily lifestyle. Second, the current system uses air tank which lasts for 500 actuations as described in section 2.2. During the trial we used two air tanks so that it lasts longer. We feel, a better management of air tanks or strategy to replace the tanks is needed to support large number of actuations. 
+
+
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.9\linewidth]{photos/preliminarystudy}

@@ -5,6 +5,7 @@
 \usepackage{booktabs}
 \usepackage{multirow}
 \usepackage{siunitx}
+\usepackage{amsmath}
 \usepackage[normalem]{ulem}
 \useunder{\uline}{\ul}{}
 
@@ -160,7 +161,12 @@ The AWGAS uses the PGMs along the quadriceps femoris muscles connected across tw
 
 \subsection{Biomechanics of Gait Cycle and Control strategy of AWGAS}
 
-The AWGAS utilizes the gait cycle and its phases to identify the region of assistive motion. Figure \ref{fig:gaitcycle} illustrates the gate cycle as described in \cite{12}, its phases, location, and orientation of foot and region of assisted motion. The AWGAS is designed to augment walking by assisting the forward locomotion during the swing phase. A gait cycle called stride primarily consists of two phases: stance and swing. The objective of the stance phase is load bearing and that of the swing phase is forward locomotion. In the gait cycle, the initial 10\% of each phase is called the double limb support. In this part of the gait cycle, the limb transfers from stance to swing, and vice versa, on a contralateral foot. The sensors in the shoe allow us to detect the gait cycle of both lower limbs. These are used together to detect the double limb support and the transition from stance to the swing phase of the individual limb in the gait cycle. This transition triggers the activation event to assist the limb in swing phase at the same time that the deactivation event is triggered to stop the assist on the contralateral limb, which is in the stance phase. Figure \ref{fig:gaitdetectflowchart} shows a motion flowchart in the loop feed-forward assistive control using gait detection system and triggering assist event. Based on the flowchart, the assistive walking in the AWGAS is a continuous process of identifying the changes in the gait cycles. Figure \ref{fig:assistcontrol} shows the gait cycle information with reference to the FSR sensors in the shoe and the generation of assistive force. It shows the simultaneous stance phase detection of the right and left limb and the generation of an assistive force for the left limb, which is in the swing phase of the gait cycle. CHEN  et al. in \cite{13} reported that the time required for a single limb support is equal to the swing time and can be calculated based on the FSR or inertial sensors. Similarly, the use of foot sensors is very common for exoskeletons and assistive suits \cite{14,15,16,17,18,19,20,21}, and they provide accuracy in gait cycle detection. The actuation controller for the AWGAS is designed on the similar principle where the FSR sensors in the shoe identify the stance phase, and the differentiating sensor data from both limbs correctly identify the swing phase and provide the assistive force.
+Human walking is synchronized motion of both limbs called as gait. A gait cycle also called as stride is motion of a limb from stance to stance phase while walking. Fig \ref{fig:gaitcycle} illustrates the gate cycle as described in \cite{12}, its phases, location, and orientation of foot and region of assisted motion. In the gait cycle, the initial 10\% of each phase is called the double limb support. In this part of the gait cycle, the limb transfers from stance to swing, and vice versa, on a contralateral foot. The stance phase is responsible for load balance and maintain posture whereas swing phase mainly responsible for forward movement. During this knee extensors and flexors are used from toe off to heel strike. Assisting this phase, we can reduce the effort required by these muscle group thereby augmenting gait. 
+
+To reduce the muscle efforts during swing phase of the gait cycle we need to identify the beginning and end of the gait cycle. In our design this was done by using force sensitive resistors (FSR) in the shoe. The FSRs are places at the heel of the shoe. The placement of the FSR is used for detecting stance phase of the gait cycle. Since the gait is synchronous activity of both limb when one limb is in the stance phase other limb is in the swing phase. The dual support phase during which transition between stance and swing happens, helps us identify the limb in swing phase using FSR sensors in the shoe. Based on this the system identifies which limb to assist and when to start and stop assist i.e. actuate PGM using pneumatic solenoid valves. CHEN  et al. in [14] reported that the time required for a single limb support is equal to the swing time and can be calculated based on the FSR or inertial sensors. Similarly, the use of foot sensors is very common for exoskeletons and assistive suits [14]–[22] \cite{14,15,16,17,18,19,20,21}, and provides accuracy in gait cycle detection. CHETN et al. also mentioned the time required for the stance phase of one limb is equal to time required for swing phase of the contralateral limb.
+
+Based on this we designed the algorithm for actuation control of PGM actuators during swing phase and synchronize the assistive force with the gait cycle. Fig \ref{fig:gaitdetectflowchart} shows the flow of the actuation control logic for AWGAS. In the flow chart FSR sensors in both limbs are used to detect gait cycle i.e. to identify if the user is walking. Upon detecting the gait cycle the algorithm identifies the limb in the swing phase and actuates PGM actuator to provide the assistive force by turning on pneumatic solenoid valve. This algorithm is continuous process of polling FSR sensor readings and deciding the actuation control. 
+
 
 \begin{figure}[h]
 	\centering
@@ -183,57 +189,80 @@ The AWGAS utilizes the gait cycle and its phases to identify the region of assis
 	\label{fig:assistcontrol}
 \end{figure}
 
+\begin{align}\label{eq:actu1}
+f(PGM_{actuation}) = f(R,L)
+\end{align}
+where
+$f(PGM_{actuation})$ is actuation control function which depends on $R = f(R_{fsr})$ and $L = f(L_{fsr})$ which are functions of FSR sensor in right and left limb respectively. 
+$FSR_{ref}$ is reference value of FSR sensor used for distinguishing between stance and swing phase while walking. 	
+
+$R$ and $L$ are defined as as follows
+
+\begin{align}\label{eq:rfsr}
+R= ^{}
+\begin{cases}
+1,& \text{if } f(R_{fsr)} \geq FSR_{ref}, \text{  i.e. Stance Phase}\\
+0              & \text{otherwise, i.e. Swing Phase}
+\end{cases}
+\end{align}
+
+\begin{align}\label{eq:lfsr}
+L= ^{}
+\begin{cases}
+1,& \text{if } f(L_{fsr)} \geq FSR_{ref}, \text{  i.e. Stance Phase}\\
+0,              & \text{otherwise, i.e. Swing Phase}
+\end{cases}
+\end{align}
+
+From Eq \ref{eq:rfsr} and Eq \ref{eq:lfsr} we can clearly identify the present phase of the respective limb. Based on this we update Eq \ref{eq:actu1} as follows:
+
+\begin{align}\label{eq:actufinal}
+f(PGM_{actuation}) = ^{}
+\begin{cases}
+L_{assist},& \text{ if } R = 1\text{ \& } L = 0\\ 
+R_{assist},& \text{ if } R = 0\text{ \& } L = 1\\ 
+%\text{No Assist}, & \text{ if } (R \text{ \& } L = 1) OR (R \text{ \& } L = 0)
+\text{No Assist}, & \text{otherwise}
+\end{cases}
+\end{align}
+
+Eq \ref{eq:actufinal} states the developed actuation control which actuates left PGM when right limb is in stance phase and right PGM when left limb is in stance phase. No assist case is applicable for standing motion or both limbs above ground. This way the developed assist control algorithm actuates PGMs and synchronizes with gait cycle. By doing this we can reduce the required muscle efforts during swing phase of the gait cycle.
 
 \subsection{Modeling of assistive forces}
-In the previous section, we discussed the design of the AWGAS and the motion in the loop actuation control for providing the assistive forces. In this section, we discuss the force model of the assistive force generated by the AWGAS and the factors associated with it. 
+In the previous section, we discussed the importance of phases in a gait cycle and how it was utilized to develop assist and actuation control of PGM synchronized with gait cycle. In this section we will discuss the modeling of force generation characteristics of PGM under the influence of tension in the muscle due to stretched use. 
 
-K. Ogawa et al. in \cite{11} measured the force and displacement characteristics for the change in the internal air pressure. These characteristics describe the displacement due to elongation when the load is attached and changed in air pressure. They reported that the elongation ratio changes as the supply air pressure is changed for the same load. Based on their observation, we derived a force model of the assistive suit. The assistive force is a combination of two factors, the elasticity of the PGM when no air pressure is provided and the force characteristics when the supplied air pressure is in the range from \SI{50}{\kilo\pascal} to \SI{300}{\kilo\pascal}. 
+K. Ogawa et al. in \cite{11} measured the force and displacement characteristics for the change in the internal air pressure. These characteristics describe the displacement due to elongation when the load is attached and changed in air pressure. They reported that the elongation ratio changes as the supply air pressure is changed for the same load. This observation states the load carrying capacity of PGM and elongation for the change in air pressure. But does not consider the tension in the muscle i.e. when both ends of muscle is fixed and PGM is stretched before actuation. It is important to measure this characteristic because the in wearable assistive suits the PGM actuators will always have their both ends fixed at rest length or stretched depending on the application. To model this characteristic, we perform experiment to measure force generated due to stretch in the PGM. Experiment setup is shown in Fig 2, in this the force generated by PGM for tension in the muscle due to stretch. The generated force was measured for rest length i.e. 30 cm and for stretched length of 32 cm, 34 cm and 37 cm. Fig 10 shows the observed force profile of PGM due to tension caused by stretch. It shows the force increases linearly as we change the tension in muscle and air pressure. 
 
-Equation \ref{eq:1} derives the PGM elasticity model; it is an exponential model with $R^{2}$ as 0.8035, and represents the force and length relationship of the PGM when no air pressure is provided. 
 
-\begin{equation}\label{eq:1}
-F_{pgmnp} = 0.092e^{58.43x}
-\end{equation}
-where
-$F_{pgmnp}$ is the elastic force of the PGM when no air pressure is supplied and $x$ is the displacement in the PGM due to elongation, termed as
-\[x = l_{pgmstretched} - l_{pgmrest} \] 
-
-where $l_{pgmrest}$ is the rest length of the PGM i.e., \SI{300}{\milli\meter} and $l_{pgmstretched}$ is the elongation in the PGM where, $\SI{300}{\milli\meter} \leq l_{pgmstretched} \leq \SI{500}{\milli\meter}$.\\
-
-The empirical model of the nonlinear force and length relationship of the PGM due to the change in air pressure is derived using the surface fitting technique. Figure \ref{fig:ogawamodel} shows the modeled surface and its residual plot. Equation \ref{eq:1} is the $1^{st}$-order polynomial of the modeled surface where the coefficients are within the 95\% confidence bounds, $R^{2}$ is 0.93, and the sum of the squared residuals is 0.002522.
-
-The change in the force characteristics of the PGM is due to the change in the internal air pressure. 
-
-\begin{equation}\label{eq:2}
-F_{pgmwp} =  \dfrac{x - a - cP_{in}}{b}
-\end{equation}
-
-where $F_{pgmwp}$ is the force generated by the PGM due to the change in the internal air pressure, $P_{in}$ is the internal air pressure of the PGM, $x$ is the displacement due to elongation as mentioned above, and the coefficients are
-\[a = 0.08857\]
-\[b= 0.02618\]
-\[c=-0.02343\]
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=1\linewidth]{photos/ogawadatamodel}
-	\caption{Surface fit model of force and length relation with respect to air pressure and its residual error.}
+	\includegraphics[width=1\linewidth]{photos/pgmtensionmodel}
+	\caption{Modeling of PGM force characteristics considering tension in the muscle due to stretched length and change in the air pressure. X-axis is supplied air pressure, Y-axis is force generated by PGM. The graph shows, force generated by PGM due to tension caused by stretching it. The solid lines are experiment values and dotted lines are modeled values.}
 	\label{fig:ogawamodel}
 \end{figure}
 
-The assistive force provided by the suit is derived as the sum of the force models derived above. By combining equation \ref{eq:1} and \ref{eq:2}, we obtain assistive force $F_{assist}$ as a function of the internal air pressure and displacement during elongation, derived in equation \ref{eq:3}.
+We modeled this observation as linear polynomial equation of $2^{nd}$ order of supplied air pressure and $1^{st}$ order of stretched length. Eq. \ref{eq:fpgm} defines this model where the coefficients are within the 95\% confidence bounds, $R^{2}$ is 0.9852. In this linear model $x$ can be derived from stretched length of PGM when used in AWGAS and $y$ is the internal air pressure. The stretched length is the length PGM after it is stretched to attach along rectus femoris i.e. from hip to knee. Internal air pressure depends on the supply air pressure from the portable air tank using regulator. 
 
-\[F_{assist} = F_{pgmenp} + F_{pgmwp}\]
+\[F_{pgm} = f(x,y)\]
 
-\begin{equation}\label{eq:3}
-F_{assist} =  \dfrac{0.092be^{58.43x} +x - a - cP_{in}}{b}
-\end{equation}
+where
+\[x = \text{streched length of PGM}\] 
+\[y = \text{supplied air pressue}\]
 
-where 
-$F_{pgmenp}$ is the force generated by the PGM due to its elastic nature i.e., when no air pressure is supplied; 
-$F_{pgmwp}$ is the force generated by the PGM due to the change in the internal air pressure;
-$x$ is derived from the length of the body segment of the person wearing the assistive suit; $P_{in}$ is the internal pressure. The length of the body segment is the length of the quadriceps femoris. 
+\begin{align}\label{eq:fpgm}
+	F_{pgm} = a +bx+cy+dx^2+exy
+\end{align}
+where
+\[a = -343.5\]
+\[b=19.84\]
+\[c = -0.6416\]
+\[d = -0.2829\]
+\[e = 0.02759\]
 
-Therefore, based on equation \ref{eq:1} and \ref{eq:3}, we conclude that the AWGAS provides minimalistic assistive force for walking even when no air pressure is provided. The assistive force under this situation is based on the elastic model of the PGM, as mentioned in equation \ref{eq:1}. Further, when actuation control is enabled and the air supply is set within the supported range, the suit provides the assistive force as mentioned in equation \ref{eq:3}.
+From this experiment and Eq.\ref{eq:fpgm} we observed, due to the elastic nature of the PGM, it can generate assistive force even in the absence of air pressure when stretched. Therefore, we believe the AWGAS developed using PGM should assist walking in the absence and presence of assistive air pressure.
+
+
 
 \section{AWGAS Evaluation Experiment with sEMG and Variable Assistive Force.}
 
@@ -262,9 +291,9 @@ Figure \ref{fig:experiment} shows a participant wearing the experiment setup. Th
 \end{figure}
 
 \subsection{Results}
-The recorded sEMG data were rectified with an integrated EMG (iEMG), a second-order low-pass filter with 100 Hz cutoff frequency, and a second-order high-pass filter with cutoff frequency of 40 Hz. For statistical analysis and comparison with assisted motion and unassisted motion, the processed sEMG data were normalized as a percentage of the maximum voluntary contraction for an individual subject and their respective muscles. After normalizing the sEMG, ten full gait cycles were segmented and averaged with the help of the FSR sensor data. The FSR sensor was used to identify the gait cycle from heel strike to heel strike. Segmenting all the gait cycles yields one averaged gait cycle with its standard deviation. This was performed for the sEMG of all eight muscles for all the participants. The normalized and averaged sEMG of all participants were further averaged to prepare the gait cycle of the unassisted and assisted walking experiment. The final sEMG of all muscles were normalized and segmented, and the gait cycles for all participants were averaged with their standard deviations. Figure 11 shows the sEMG envelope of the averaged and normalized gait cycle for all muscles with the respective standard deviation, as well as the maximum peak and nature of the sEMG; the figure shows a reduction in the peak value and the nature of the curve for all the muscles with an assisted gait as compared to unassisted gait.
+The recorded sEMG data were rectified with an integrated EMG (iEMG), a second-order low-pass filter with 100 Hz cutoff frequency, and a second-order high-pass filter with cutoff frequency of 40 Hz. For statistical analysis and comparison with assisted motion and unassisted motion, the processed sEMG data were normalized as a percentage of the maximum voluntary contraction for an individual subject and their respective muscles. After normalizing the sEMG, ten full gait cycles were segmented and averaged with the help of the FSR sensor data. The FSR sensor was used to identify the gait cycle from heel strike to heel strike. Segmenting all the gait cycles yields one averaged gait cycle with its standard deviation. This was performed for the sEMG of all eight muscles for all the participants. The normalized and averaged sEMG of all participants were further averaged to prepare the gait cycle of the unassisted and assisted walking experiment. The final sEMG of all muscles were normalized and segmented, and the gait cycles for all participants were averaged with their standard deviations. Fig. \ref{fig:emgenvelope} and Fig. \ref{fig:semgpeakcompare} shows the sEMG envelope of the averaged and normalized gait cycle for all muscles with the respective standard deviation and compares the sEMG signal of all three experiments respectively. These figures shows that assisting swing phase of the gait cycle reduces the muscle effort during walking, based on the reduction in peak value of sEMG signal and less deviation in sEMG when walking with AWGAS.
 
-For statistical analysis, we measured the average and standard deviation of the sEMG signal of each muscle for the assisted and unassisted gait. Figure 10 shows a comparison of the average MVC percentage of each muscle for the unassisted and assisted gait experiment with their standard deviations. We conducted the student’s t-test assuming unequal variance to obtain the statistical significance of the reduction in the sEMG in the assisted gait. The test shows a significant difference for most of the muscles especially the muscles involved in the swing phase of the gait cycle for the AWGAS with no assist, and with actuation control and assist. The rectus femoris (p-value = 0.01 \& p-value = 0.011), biceps femoris (p-value = 0.004 \& p-value = 0.007), vastus medialis (p-value = 0.016 \& p-value = 0.002), vastus lateralis (p-value = 0.059 \& p-value = 0.019) and tibialis anterior  (p-value = 0.002 \& p-value = 0.001) are the active muscles during the swing phase of the gait cycle and show significant reduction while using the AWGAS without assist and with assist for the force generated at \SI{80}{\kilo\pascal}. The soleus (p-value = 0.56 \& p-value = 0.17), lateral gastrocnemius (p-value = 0.1 \& p-value = 0.14) and medial gastrocnemius (p-value = 0.024 \& p-value = 0.097) are the additional muscles responsible for the stance phase along with TA, RF, VM, and VL, which are also active during the swing phase. Based on the statistically significant difference discussed above and from figure 10, we observed that the assistive force provided during the swing phase of the walking reduced the muscle effort of the lower limb muscles in both the swing stance phases of the gait cycle. Meanwhile, the difference was more significant for the muscles involved in the swing phase, whereas for the other muscles in the stance phase, a reduction in the sEMG was observed, but this reduction was less significant. Table \ref{percentagereduction} shows the reduction in the \%MVC for both assisted conditions. The results of the t-test with the respective p-value and t-value are shown in table \ref{ttestresult}. Therefore, based on the graph in Figure \ref{fig:emgenvelope}, \ref{fig:awgasemgbarpvalue} and table \ref{ttestresult}, we observed that the use of AWGAS could reduce the muscle efforts during the swing phase and stance phase of the gait cycle significantly.
+For statistical analysis, we measured the average and standard deviation of the sEMG signal of each muscle for the assisted and unassisted gait. Fig \ref{fig:awgasemgbarpvalue} shows a comparison of the average MVC percentage of each muscle for the unassisted and assisted gait experiment with their standard deviations. We conducted the student’s t-test assuming unequal variance to obtain the statistical significance of the reduction in the sEMG in the assisted gait. The test shows a significant difference for most of the muscles especially the muscles involved in the swing phase of the gait cycle for the AWGAS with no assist, and with actuation control and assist. The rectus femoris (p-value = 0.01 \& p-value = 0.011), biceps femoris (p-value = 0.004 \& p-value = 0.007), vastus medialis (p-value = 0.016 \& p-value = 0.002), vastus lateralis (p-value = 0.059 \& p-value = 0.019) and tibialis anterior  (p-value = 0.002 \& p-value = 0.001) are the active muscles during the swing phase of the gait cycle and show significant reduction while using the AWGAS without assist and with assist for the force generated at \SI{80}{\kilo\pascal}. The soleus (p-value = 0.56 \& p-value = 0.17), lateral gastrocnemius (p-value = 0.1 \& p-value = 0.14) and medial gastrocnemius (p-value = 0.024 \& p-value = 0.097) are the additional muscles responsible for the stance phase along with TA, RF, VM, and VL, which are also active during the swing phase. Based on the statistically significant difference discussed above and from figure 10, we observed that the assistive force provided during the swing phase of the walking reduced the muscle effort of the lower limb muscles in both the swing stance phases of the gait cycle. Meanwhile, the difference was more significant for the muscles involved in the swing phase, whereas for the other muscles in the stance phase, a reduction in the sEMG was observed, but this reduction was less significant. Table \ref{percentagereduction} shows the reduction in the \%MVC for both assisted conditions. The results of the t-test with the respective p-value and t-value are shown in table \ref{ttestresult}. Therefore, based on the graph in Figure \ref{fig:emgenvelope}, \ref{fig:awgasemgbarpvalue} and table \ref{ttestresult}, we observed that the use of AWGAS could reduce the muscle efforts during the swing phase and stance phase of the gait cycle significantly. We also observed that the AWGAS can assist walking when air pressure is supplied as well as in the absence of air pressure. 
 
 \begin{figure*}
 	\centering
@@ -355,11 +384,13 @@ During the trials, participants walked with and without AWGAS on paddy field whi
 \end{figure}
 
 \section{Discussion}
-In this study, we developed the AWGAS, a lightweight wearable walking assist suit, a PGM actuation control mechanism for assisting forward locomotion during the swing phase of the gait cycle, and the gait cycle detection system. Because of use of the portable air tank for actuating the PGM, the PGM actuation is not delayed from the movement actuation signal given, making the AWGAS capable of supporting various walking speeds. The current configuration provides assistive force from the pre-swing to the beginning stance phase of the gait cycle, which constitutes 40\% to 50\% of a gait cycle. From the results of our experiment, we observed that the AWGAS could reduce muscle efforts of the quadriceps femoris and hamstring muscles along which the PGM was attached, and reduced the calf muscles and tibialis anterior efforts, which are primarily active during the swing phase of the gait cycle. This suggests that the assisting forward locomotion of the gait cycle augments human walking by reducing muscle activation during walking. Based on assistive force model discussed in \ref{eq:3} PGM can exert force even in the absence of air pressure supply. Experimental evaluation to support this claim shows, when wearing AWGAS in the absence of air pressure, it reduces muscle activation during walking significantly as shown in \ref{fig:awgasemgbarpvalue}. Such ability of the wearable walking assist is developed in very few exoskeletons such as \cite{22} where the assistance is discussed based on the reduction metabolic cost of walk while using unpowered exoskeleton. In the current implementation, the assistive force depends on the supply air pressure and on the user knowledge of the required assistive force. The development of variable stiffness modulation for assistive walking using the AWGAS or lower limb support would be beneficial for designing future applications using low-pressure-driven artificial muscle PGM.    
+In this study, we developed the AWGAS, a lightweight wearable walking assist suit, a PGM actuation control mechanism for assisting forward locomotion during the swing phase of the gait cycle, and the gait cycle detection system. Because of use of the portable air tank for actuating the PGM, the PGM actuation is not delayed from the movement actuation signal given, making the AWGAS capable of supporting various walking speeds. The current configuration provides assistive force from the pre-swing to the beginning stance phase of the gait cycle, which constitutes 40\% to 50\% of a gait cycle. From the results of our experiment, we observed that the AWGAS could reduce muscle efforts of the quadriceps femoris and hamstring muscles along which the PGM was attached, and reduced the calf muscles and tibialis anterior efforts, which are primarily active during the swing phase of the gait cycle. This suggests that the assisting forward locomotion of the gait cycle augments human walking by reducing muscle activation during walking. Based on assistive force model discussed in \ref{eq:fpgm} PGM can exert force even in the absence of air pressure supply. Experimental evaluation to support this claim shows, when wearing AWGAS in the absence of air pressure, it reduces muscle activation during walking significantly as shown in \ref{fig:awgasemgbarpvalue}. Such ability of the wearable walking assist is developed in very few exoskeletons such as \cite{22} where the assistance is discussed based on the reduction metabolic cost of walk while using unpowered exoskeleton. In the current implementation, the assistive force depends on the supply air pressure and on the user knowledge of the required assistive force. The development of variable stiffness modulation for assistive walking using the AWGAS or lower limb support would be beneficial for designing future applications using low-pressure-driven artificial muscle PGM.    
+
+
 
 \section{Conclusion}
 
-In this paper, we discussed design and development of AWGAS (assistive wearable gait augmenting suit), swing phase detection system and PGM actuation control. The system is realized as feedforward control where assistive force is provided when the swing phase is detected. The configuration provides assistive force for 40\% to 50\% of the gait cycle. The experiment shows a reduction in the lower limb muscle activation significantly, and no adverse effect regarding excessive muscle activation. AWGAS can assist variable walking speed which is possible due to the implementation of gait detection system and use of portable air tank. AWGAS is lightweight, portable, easy to use walking assist suit and can assist walking even in the absence of supplied air pressure. Further, in our study, we plan to develop variable stiffness modulation control of PGM, it can provide assistive force based on actual requirement. Such control will be useful for improving lower limb locomotion and assistance for various other tasks involved bending hip or knee for pick and place operations. In addition to this we also plan to add support to add additional PGMs if required without change in controller and gain addition strength, assistive force or replacing the damaged artificial muscles easily.
+In this paper, we discussed design and development of AWGAS (assistive wearable gait augmenting suit), swing phase detection system and PGM actuation control. The system is realized as feedforward control where assistive force is provided when the swing phase is detected. The configuration provides assistive force for 40\% to 50\% of the gait cycle. The experiment shows a reduction in the lower limb muscle activation significantly, and no adverse effect regarding excessive muscle activation. AWGAS can assist variable walking speed which is possible due to the implementation of gait detection system and use of portable air tank. AWGAS is lightweight, portable, easy to use walking assist suit and can assist walking even in the absence of supplied air pressure. Further, in our study, we plan to develop variable stiffness modulation control of PGM, it can provide assistive force based on actual requirement. Such control will be useful for improving lower limb locomotion and assistance for various other tasks involved bending hip or knee for pick and place operations. The current configuration uses FSR sensors in the shoe to detect the stance and swing phases of gait cycle, we believe inertial sensors along with FSR can be used to designed more detailed control strategy for dynamic requirements of human walking. In addition to this we also plan to add support to add additional PGMs if required without change in controller and gain addition strength, assistive force or replacing the damaged artificial muscles easily. 
 
 \acknowledgements
 The authors take this opportunity to thank members of Biological Systems Engineering lab at Graduate School of Engineering in Hiroshima University, Japan for participating in the performance evaluation of the AWGAS. We also like to thanks Daiya Industries for development and support of low pressure driven pneumatic gel muscle i.e. PGM.
